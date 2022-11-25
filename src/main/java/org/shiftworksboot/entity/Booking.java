@@ -27,5 +27,4 @@ public class Booking {
     @JoinColumn(name = "rsc_id")
     private MeetingRoom meetingRoom;
 
-    //
 }
