@@ -20,6 +20,7 @@ public class TaskFile {
     private Task task;
 
     private String file_name;
+
     private String file_src;
 
 }

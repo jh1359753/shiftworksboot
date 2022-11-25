@@ -17,11 +17,17 @@ public class Task {
     private Integer task_id;
 
     private String task_title;
+
     private String task_content;
+
+    @Column(name = "t_private", length = 1)
     private Character t_private;
+
+    @Column(name = "notification", length = 1)
     private Character notification;
+
     private String date_created;
-    private String emp_id;
+
     private String dept_id;
 
 
