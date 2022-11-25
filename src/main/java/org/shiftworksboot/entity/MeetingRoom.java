@@ -20,5 +20,5 @@ public class MeetingRoom {
     private String rsc_name;
     private String rsc_loc;
     private int rsc_amount;
-    private String rsc_hrs;
+    //private String rsc_hrs;
 }
