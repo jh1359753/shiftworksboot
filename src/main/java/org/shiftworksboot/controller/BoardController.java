@@ -5,10 +5,6 @@ import org.shiftworksboot.dto.BoardDto;
 import org.shiftworksboot.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,30 +31,41 @@ public class BoardController {
 
     //게시판 생성하기
     @PostMapping(value = "/newBoard")
-    public ResponseEntity insertNewBoard(@Valid BoardDto boardDto,
-                                                 BindingResult bindingResult,
-                                                 Model model) {
+    public ResponseEntity insertNewBoard(BoardDto boardDto) {
 
 
-        if(bindingResult.hasErrors()){
+        /*if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             for(FieldError fieldError: fieldErrors){
                 sb.append(fieldError.getDefaultMessage());
             }
             return new ResponseEntity<String>(sb.toString(),HttpStatus.BAD_REQUEST);
-        }
+        }*/
 
-        Integer b_id;
+        String content = boardService.insertNewBoard(boardDto);
 
-        try{
-            b_id = boardService.insertNewBoard(boardDto);
-        }catch (Exception e){
-            return new ResponseEntity<String>(e.getMessage(),
-                    HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<Integer>(b_id, HttpStatus.OK);
+        return new ResponseEntity<String>(content, HttpStatus.OK);
 
+    }
+
+
+    //게시판 관리 페이지 이동하기
+    @GetMapping(value = "/boardmanage")
+    public ModelAndView boardManage(){
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/board/BOA_boardmanage");
+
+        return mav;
+    }
+
+    //게시판 목록 불러오기
+    @GetMapping(value = "/allBoardList")
+    public ResponseEntity allBoardList(){
+        System.out.println("boardList....");
+
+        return new ResponseEntity<List<BoardDto>>(boardService.allBoardList(),HttpStatus.OK);
     }
 
 }

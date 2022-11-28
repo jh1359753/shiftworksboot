@@ -1,23 +1,44 @@
 package org.shiftworksboot.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.shiftworksboot.dto.BoardDto;
 import org.shiftworksboot.entity.Board;
 import org.shiftworksboot.repository.BoardRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log
 public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public Integer insertNewBoard(BoardDto boardDto){
+    //게시판 생성하기
+    public String insertNewBoard(BoardDto boardDto){
         Board board = boardDto.createBoard();
-        boardRepository.save(board);
-        return board.getB_id();
+
+        log.info(boardDto.getContent());
+        log.info(board.getContent());
+        return boardRepository.save(board).getContent();
+
+    }
+
+    //게시판 목록 불러오기
+    public List<BoardDto> allBoardList(){
+        List<Board> list = boardRepository.findAll();
+        List<BoardDto> dtos = new ArrayList<>();
+
+        for(Board board:list){
+          BoardDto dto = BoardDto.of(board);
+          dtos.add(dto);
+        }
+        return dtos;
     }
 
 
