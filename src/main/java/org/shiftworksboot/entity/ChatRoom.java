@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "chatroom")
@@ -13,11 +14,22 @@ import javax.persistence.*;
 public class ChatRoom {
 
     @Id
-    private String room_id;
+    @Column(name = "room_id")
+    private String roomId;
 
-    private String room_name;
+    @Column(name = "room_name")
+    private String roomName;
 
     private String lastchat;
 
-    private String lastchat_time;
+    @Column(name = "lastchat_time")
+    private String lastchatTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
+
+    public ChatRoom() {
+        this.roomId = UUID.randomUUID().toString();
+    }
 }

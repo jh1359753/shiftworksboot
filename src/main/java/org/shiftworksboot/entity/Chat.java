@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "chat")
@@ -15,7 +14,8 @@ public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int chat_id;
+    @Column(name = "chat_id")
+    private int chatId;
 
     private String content;
 

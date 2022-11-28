@@ -14,6 +14,6 @@ import javax.persistence.*;
 public class ChatRoomUser {
 
     @Id
-    private int chatRoomUser_id;
+    private int chatRoomUserId;
 
 }

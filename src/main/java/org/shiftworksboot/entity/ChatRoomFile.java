@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "chatroom_file")
@@ -14,9 +13,12 @@ import java.util.UUID;
 public class ChatRoomFile {
 
     @Id
-    private String file_id;
+    @Column(name = "file_id")
+    private String fileId;
 
-    private String file_name;
+    @Column(name = "file_name")
+    private String fileName;
 
-    private String file_src;
+    @Column(name ="file_src")
+    private String fileSrc;
 }
