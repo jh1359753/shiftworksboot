@@ -19,7 +19,7 @@ public class Chat {
 
     private String content;
 
-    private String sendTime;
+    private String sendtime;
 
     private String sender;
 

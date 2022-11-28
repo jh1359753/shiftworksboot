@@ -20,16 +20,17 @@ public class ChatRoom {
     @Column(name = "room_name")
     private String roomName;
 
-    private String lastchat;
-
-    @Column(name = "lastchat_time")
-    private String lastchatTime;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_id")
+    private Chat lastchat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_id")
     private Employee employee;
 
-    public ChatRoom() {
-        this.roomId = UUID.randomUUID().toString();
+    public static ChatRoom createChatRoom() {
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.roomId = UUID.randomUUID().toString();
+        return chatRoom;
     }
 }
