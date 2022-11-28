@@ -18,7 +18,7 @@ public class Post {
     private Integer post_id;
 
     @Column(name = "post_name")
-    private String name;
+    private String pname;
 
     @Column(name = "post_content")
     private String content;
@@ -41,6 +41,15 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "b_id")
     private Board board;
+
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id")
+    private Department department;*/
+
 
 
 }

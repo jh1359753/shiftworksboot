@@ -20,7 +20,7 @@ public class BoardController {
     private final BoardService boardService;
 
     //게시판 생성페이지 이동
-    @GetMapping(value = "/board/new")
+    @GetMapping(value = "/board/newBoard")
     public ModelAndView register() throws Exception{
 
         ModelAndView mav = new ModelAndView();

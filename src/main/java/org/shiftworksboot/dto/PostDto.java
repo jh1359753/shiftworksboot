@@ -11,7 +11,7 @@ public class PostDto {
 
     private Integer post_id;
 
-    private String name;
+    private String pname;
 
     private String content;
 
@@ -22,6 +22,12 @@ public class PostDto {
     //private char fix;
 
     private String receivedept;
+
+    private int b_id;
+
+    private int emp_id;
+
+    private int dept_id;
 
     public static ModelMapper modelMapper = new ModelMapper();
 

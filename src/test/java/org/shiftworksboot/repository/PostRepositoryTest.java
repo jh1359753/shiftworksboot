@@ -35,9 +35,9 @@ class PostRepositoryTest {
     @DisplayName("게시물 등록테스트")
     public void insertPostTest(){
         this.createBoard();
-        /*Post post = new Post();
+        Post post = new Post();
 
-        post.setName("게시물");
+        post.setPname("게시물");
         post.setContent("게시물 내용입니다");
         post.setRegno(0);
         post.setRegdate("2022-08-20");
@@ -49,7 +49,7 @@ class PostRepositoryTest {
                         .orElseThrow(EntityNotFoundException::new);
         post.setBoard(board);
 
-        System.out.println(postRepository.save(post));*/
+        System.out.println(postRepository.save(post));
     }
 
 }
