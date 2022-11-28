@@ -88,8 +88,6 @@
 
     $(document).ready(function(){
 
-        //console.log(bookingService);
-
         //날짜 선택 UI(datepicker)
         $(function() {
             $( "#Date" ).datepicker({
@@ -98,44 +96,30 @@
         });
 
 
-
         //예약자원 등록폼 데이터 -> 업데이트 필요
         var form = $(".insertForm");
-        var book_id = form.find("input[name='book_id']");
-        var rsc_id = form.find("select[name='rsc_id']");
-        var emp_id = form.find("input[name='emp_id']");
-        var dept_id = form.find("input[name='dept_id']");
-        var book_date = form.find("input[name='book_date']");
-        var book_begin = form.find("select[name='book_begin']");
-        var book_title = form.find("input[name='book_title']");
-        var book_content = form.find("textarea[name='book_content']");
+        var rsc_name = form.find("input[name='rsc_name']");
+        var rsc_loc = form.find("input[name='rsc_loc']");
+        var rsc_amount = form.find("input[name='rsc_amount']");
 
-        var csrf_token = $("meta[name='_csrf']").attr("content");
-        var csrf_header = $("meta[name='_csrf_header']").attr("content");
+        // var csrf_token = $("meta[name='_csrf']").attr("content");
+        // var csrf_header = $("meta[name='_csrf_header']").attr("content");
 
         //제출 버튼 클릭 시 bookingData에 데이터 JSON형식으로 저장, 예약 프로세스 진행 후 결과값 출력
         $('#submitBtn').on("click", function(e){
-            var bookingData = {
-                book_id: book_id.val(), //자동생성이라 삭제 예정
-                rsc_id: rsc_id.val(),
-                emp_id: emp_id.val(), //로그인 세션으로 구현
-                dept_id: dept_id.val(), //로그인 세션으로 구현
-                book_begin: book_begin.val(),
-                book_date: book_date.val(),
-                book_title: book_title.val(),
-                book_content: book_content.val(),
-                csrf_token:csrf_token,
-                csrf_header:csrf_header
+            var meetingRoomFormDto = {
+                //book_id: book_id.val(), //자동생성이라 삭제 예정
+                rsc_name: rsc_name.val(),
+                rsc_loc: rsc_loc.val(),
+                rsc_amount: rsc_amount.val(),
+                // csrf_token:csrf_token,
+                // csrf_header:csrf_header
             };
 
-            bookingService.insertBooking(bookingData, function(result){
-                if(result == "success"){
-                    alert("예약되었습니다");
-                    $(location).attr('href', '/booking/calendar/view');
-                }else if(result =="fail"){
-                    alert("이미 예약된 시간입니다")
-                }
-            })//end insertBooking
+
+            bookingService.insertRoom(meetingRoomFormDto, function(result){
+                alert(result);
+            })//end registerRoom
 
         });
 
