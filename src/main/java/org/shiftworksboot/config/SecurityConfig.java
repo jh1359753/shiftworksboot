@@ -33,12 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
                 .logoutSuccessUrl("/");
 
+        http.authorizeRequests()
+                .mvcMatchers("/task/new").hasRole("USER");
 
+        http.exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/error");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/users/login/error");
     }
 
     @Bean
