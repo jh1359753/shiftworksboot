@@ -3,13 +3,15 @@ package org.shiftworksboot.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.shiftworksboot.constant.TaskDept;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "task")
 @Getter @Setter @ToString
-public class Task {
+public class Task{
 
     @Id
     @Column(name = "task_id")
@@ -18,17 +20,16 @@ public class Task {
 
     private String task_title;
 
+    @Lob
     private String task_content;
 
-    @Column(name = "t_private", length = 1)
+    @Column(name = "t_private")
     private Character t_private;
 
-    @Column(name = "notification", length = 1)
+    @Column(name = "notification")
     private Character notification;
 
-    private String date_created;
-
-    private String dept_id;
-
+    @Enumerated(EnumType.STRING)
+    private TaskDept dept_id;
 
 }
