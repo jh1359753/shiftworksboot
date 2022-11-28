@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "task")
 @Getter @Setter @ToString
-public class Task{
+public class Task extends BaseEntity{
 
     @Id
     @Column(name = "task_id")

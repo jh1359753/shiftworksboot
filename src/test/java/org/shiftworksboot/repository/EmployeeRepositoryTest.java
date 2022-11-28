@@ -36,4 +36,17 @@ class EmployeeRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("계정 검색 테스트")
+    public void searchEmp() {
+        Employee employee = new Employee();
+        employee.setEmpId("test1");
+        employee.setPassword("1234");
+        String password = passwordEncoder.encode(employee.getPassword());
+        employee.setPassword(password);
+        employeeRepository.save(employee);
+
+        System.out.println(employeeRepository.findByEmpId("test1"));
+    }
+
 }
