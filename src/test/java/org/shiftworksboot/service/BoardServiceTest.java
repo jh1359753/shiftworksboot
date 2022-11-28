@@ -63,5 +63,20 @@ class BoardServiceTest {
     }
 
 
+    @Test
+    @DisplayName("게시판 삭제 테스트")
+    public void deleteBoard(){
+        this.boardInsert();
+        Integer b_id = 1;
+        boardService.deleteBoard(b_id);
+
+        List<BoardDto>list = boardService.allBoardList();
+        for(BoardDto dto:list){
+            System.out.println(dto.toString());
+        }
+
+    }
+
+
 
 }

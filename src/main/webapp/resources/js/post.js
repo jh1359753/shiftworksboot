@@ -296,7 +296,7 @@ var postService = (function(){
 		
 		$.ajax({
 			type : 'get',
-			url : '/board/boardList'+".json",
+			url : '/board/boardList',
 			contentType : "application/json; charset:UTF-8",
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -318,7 +318,7 @@ var postService = (function(){
 		
 		$.ajax({
 			type : 'get',
-			url : '/board/allBoardList'+".json",
+			url : '/board/allBoardList',
 			contentType : "application/json; charset:UTF-8",
 			success : function(result, status, xhr) {
 				if (callback) {

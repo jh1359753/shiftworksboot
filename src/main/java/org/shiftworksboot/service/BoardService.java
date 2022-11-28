@@ -23,11 +23,24 @@ public class BoardService {
     public String insertNewBoard(BoardDto boardDto){
         Board board = boardDto.createBoard();
 
-        log.info(boardDto.getContent());
-        log.info(board.getContent());
+        //log.info(boardDto.getContent());
+        //log.info(board.getContent());
         return boardRepository.save(board).getContent();
 
     }
+
+    //공개게시판 목록 불러오기 수정예정
+    public List<BoardDto> selectBoardList(){
+        List<Board> list = boardRepository.findAll();
+        List<BoardDto> dtos = new ArrayList<>();
+
+        for(Board board:list){
+            BoardDto dto = BoardDto.of(board);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
 
     //게시판 목록 불러오기
     public List<BoardDto> allBoardList(){
@@ -39,6 +52,12 @@ public class BoardService {
           dtos.add(dto);
         }
         return dtos;
+    }
+
+
+    //게시판 삭제하기
+    public void deleteBoard(Integer b_id){
+        boardRepository.deleteById(b_id);
     }
 
 

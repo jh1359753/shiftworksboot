@@ -5,9 +5,9 @@ import org.shiftworksboot.dto.BoardDto;
 import org.shiftworksboot.service.BoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -30,8 +30,9 @@ public class BoardController {
 
 
     //게시판 생성하기
-    @PostMapping(value = "/newBoard")
-    public ResponseEntity insertNewBoard(BoardDto boardDto) {
+    @PostMapping(value = "/board/newBoard")
+    public ResponseEntity insertNewBoard(@Valid @RequestBody BoardDto boardDto,
+                                         BindingResult bindingResult) {
 
 
         /*if(bindingResult.hasErrors()){
@@ -51,7 +52,7 @@ public class BoardController {
 
 
     //게시판 관리 페이지 이동하기
-    @GetMapping(value = "/boardmanage")
+    @GetMapping(value = "/board/boardmanage")
     public ModelAndView boardManage(){
 
         ModelAndView mav = new ModelAndView();
@@ -60,12 +61,31 @@ public class BoardController {
         return mav;
     }
 
+    //공개게시판 목록 불러오기
+    @GetMapping(value = "/board/boardList")
+    public ResponseEntity<List<BoardDto>> selectBoardList(){
+
+        //log.info("boardList.......");
+        return new ResponseEntity<List<BoardDto>>(boardService.selectBoardList(),HttpStatus.OK);
+    }
+
+
     //게시판 목록 불러오기
-    @GetMapping(value = "/allBoardList")
+    @GetMapping(value = "/board/allBoardList")
     public ResponseEntity allBoardList(){
         System.out.println("boardList....");
 
         return new ResponseEntity<List<BoardDto>>(boardService.allBoardList(),HttpStatus.OK);
     }
+
+
+    //게시판 삭제하기
+    @DeleteMapping(value = "/board/deleteBoard/{b_id}")
+    public ResponseEntity deleteBoard(@PathVariable("b_id") int b_id){
+
+        boardService.deleteBoard(b_id);
+        return new ResponseEntity<String>("삭제완료", HttpStatus.OK);
+    }
+
 
 }

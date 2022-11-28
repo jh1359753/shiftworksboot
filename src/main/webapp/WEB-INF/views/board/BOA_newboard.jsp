@@ -77,15 +77,15 @@ $(document).ready(function () {
 	//글 등록 버튼 클릭 시 post db에 저장하기 
 	  $("#registerBtn").on("click",function(e){
 		  	
-		  var b_name = $(".form-group").find("input[name='b_name']").val();
-		  var b_content =$(".form-group").find("textarea[name='b_content']").val();
-		  var b_private = $(".form-select").val();
+		  var name = $(".form-group").find("input[name='b_name']").val();
+		  var content =$(".form-group").find("textarea[name='b_content']").val();
+		  var pri = $(".form-select").val();
 		  
 		 
 		  var post ={
-				  b_name:b_name,
-				  b_content:b_content,
-				  b_private:b_private,
+				  name:name,
+			      content:content,
+			      pri:pri
 				 // csrf_token:csrf_token,
 				 // csrf_header:csrf_header
 		  }

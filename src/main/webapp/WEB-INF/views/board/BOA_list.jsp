@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%--<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>--%>
 
 <!DOCTYPE html>
 <html>
@@ -13,8 +13,8 @@
 <link rel="stylesheet" href="/resources/css/post.css">
 
 <meta charset="UTF-8">
-<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />
+<%--<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />--%>
 <title></title>
 </head>
 <body>

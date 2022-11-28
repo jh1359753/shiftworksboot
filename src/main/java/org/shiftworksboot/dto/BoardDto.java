@@ -12,6 +12,8 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class BoardDto {
 
+    private Integer b_id;
+
     @NotBlank(message = "게시판명은 필수 입력값입니다")
     private String name;
 
