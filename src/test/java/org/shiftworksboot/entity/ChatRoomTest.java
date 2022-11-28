@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.shiftworksboot.repository.ChatRoomRepository;
-import org.shiftworksboot.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -25,7 +24,7 @@ class ChatRoomTest {
     ChatRoomRepository chatRoomRepository;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    //EmployeeRepository employeeRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -43,7 +42,7 @@ class ChatRoomTest {
         //employee.setDepartment(department);
         employee.setName("홍길동");
 
-        employeeRepository.save(employee);
+        //employeeRepository.save(employee);
 
         return employee;
     }
@@ -72,8 +71,8 @@ class ChatRoomTest {
 
         Employee employee = createEmployee();
 
-        for (int i = 0; i < 3; i++) {
-            ChatRoom chatRoom = ChatRoom.createChatRoom();
+        for (int i = 1; i <= 3; i++) {
+            ChatRoom chatRoom = ChatRoom.createChatRoom("testRoom" + i);
             chatRoom.setEmployee(employee);
             chatRoomRepository.save(chatRoom);
         }

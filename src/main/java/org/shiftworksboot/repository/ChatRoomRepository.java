@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, String> {
 
-    @Query(value = "select c from ChatRoom c where c.employee.emp_id = :emp_id ")
-    List<ChatRoom> findChatRooms(@Param("emp_id") String emp_id);
+    @Query(value = "select c from ChatRoom c where c.employee.emp_id = :empId ")
+    List<ChatRoom> findChatRooms(@Param("empId") String emp_id);
 }

@@ -28,9 +28,10 @@ public class ChatRoom {
     @JoinColumn(name = "emp_id")
     private Employee employee;
 
-    public static ChatRoom createChatRoom() {
+    public static ChatRoom createChatRoom(String roomName) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString();
+        chatRoom.setRoomName(roomName);
         return chatRoom;
     }
 }
