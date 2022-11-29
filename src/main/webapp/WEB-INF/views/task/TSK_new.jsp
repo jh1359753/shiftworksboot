@@ -52,14 +52,6 @@
 			<input type="text" class="form-control"
 			id="task_title" placeholder="글 제목">
 		</div>
-		<div class="mb-3">
-		<!-- 세션 추가 후 수정 -->
-			<label for="name" class="form-label">작성자</label>
-			<input class="form-control" type="text" <%--value='<sec:authentication property="principal.employee.name"/>'--%>
-				id="name" readonly>
-			<input class="form-control" type="hidden" <%--value='<sec:authentication property="principal.username"/>'--%>
-				id="emp_id">
-		</div>
 		<div class="mb-3 form-check">
 			<div>
 				<input class="form-check-input" type="radio" name="notification"
@@ -150,7 +142,6 @@
 					dept_id: $('#dept_id').val(),
 					task_title: $('#task_title').val(),
 					task_content: $('#task_content').val(),
-					emp_id: $('#emp_id').val(),
 					t_private: isPrivate,
 					notification: isNotification,
 					fileList: fileList

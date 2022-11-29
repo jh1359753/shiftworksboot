@@ -18,8 +18,10 @@ public class Alarm {
 
     private String content;
 
-    // 로그인 구현 후 수정
-    // private String emp_id;
-    // private String dept_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
+
+    private String deptId;
 
 }

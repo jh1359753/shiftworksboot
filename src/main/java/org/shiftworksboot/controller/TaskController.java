@@ -36,7 +36,6 @@ public class TaskController {
     public ModelAndView insertForm() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/task/TSK_new");
-
         return mav;
     }
 
