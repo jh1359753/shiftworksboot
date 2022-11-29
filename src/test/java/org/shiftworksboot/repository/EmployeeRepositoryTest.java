@@ -14,11 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@TestPropertySource(locations = "classpath:application-test.yml")
+@TestPropertySource(properties = "classpath:application-test.yml")
 class EmployeeRepositoryTest {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -41,7 +44,7 @@ class EmployeeRepositoryTest {
     @DisplayName("계정 검색 테스트")
     public void searchEmp() {
         Employee employee = new Employee();
-        employee.setEmpId("test1");
+        employee.setEmpId("user1");
         employee.setPassword("1234");
         String password = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(password);
@@ -56,6 +59,7 @@ class EmployeeRepositoryTest {
 
         Department dept = new Department();
         dept.setDeptId("DEPT1");
+        departmentRepository.save(dept);
 
         for(int i=5; i<10; i++) {
 
@@ -68,7 +72,7 @@ class EmployeeRepositoryTest {
             employeeRepository.save(employee);
         }
 
-        employeeRepository.findByDepartment(dept);
+        employeeRepository.findByDepartmentDeptId(dept.getDeptId());
 
     }
 
