@@ -90,19 +90,19 @@
 				<!-- ChatRoom DB에서 채팅방 리스트 출력 -->
 				<c:forEach items="${chatRoomList}" var="chatRoom">
 
-					<div class="discussion" id="${chatRoom.room_id }" data-room-id="${chatRoom.room_id }">
+					<div class="discussion" id="${chatRoom.roomId }" data-room-id="${chatRoom.roomId }">
 						<div class="photo"
 							style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
 							<div class="online"></div>
 						</div>
 						<div class="desc-contact">
-							<p class="name">${chatRoom.room_name }</p>
-							<p class="message">${chatRoom.lastchat }</p>
+							<p class="name">${chatRoom.roomName }</p>
+							<p class="message">${chatRoom.lastchat.content }</p>
 						</div>
-						<div class="timer" id="timer_${chatRoom.room_id }"></div>
+						<div class="timer" id="timer_${chatRoom.roomId }"></div>
 						<script type="text/javascript">
 							
-							var time = '${chatRoom.lastchat_time }';
+							var time = '${chatRoom.lastchat.sendtime }';
 						
 							if(time != ""){
 								console.log("시간 : " + time);
@@ -111,7 +111,7 @@
 								var timeago = moment(lastchat).fromNow();
 								console.log(timeago);
 							
-								document.getElementById("timer_${chatRoom.room_id }").innerText = timeago;
+								document.getElementById("timer_${chatRoom.roomId }").innerText = timeago;
 							}else{
 								$('.discussion .timer').hide();
 							}
@@ -184,7 +184,7 @@ $(document).ready(function() {
 	var stompClient = null;
 	
 	// 로그인된 사번 
-	var login_id = "<c:out value='${login_id}'/>";
+	var loginId = "<c:out value='${loginId}'/>";
 
     console.log('js start');
     
@@ -331,7 +331,7 @@ $(document).ready(function() {
     		 	for(var i = 0; i < data.length; i++){
     		 		printChat(data[i]);
     		 	}
-    	 		$('.chat .header-chat .name').empty().append(data[0].chatRoom.room_name); 
+    	 		$('.chat .header-chat .name').empty().append(data[0].chatRoom.roomName);
     	 	}
     	 });  
     });
@@ -400,8 +400,8 @@ $(document).ready(function() {
        
         if(content != "" && content != null){
         // room_id 가져오기
-        var room_id = $('.chat .header-chat .name').attr('id').substr(5);
-        console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
+        var roomId = $('.chat .header-chat .name').attr('id').substr(5);
+        console.log("전송 버튼 클릭 이벤트 : room_id : " + roomId);
         
         // 현재 시간 구하기
         const d = new Date();
@@ -411,11 +411,11 @@ $(document).ready(function() {
         var chat = {
 	            content: $('.write-message').val(),
 	            sendtime: timestamp,
-	            sender: login_id,
-	            room_id: room_id
+	            sender: loginId,
+	            roomId: roomId
 	          };
-        console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
-        stompClient.send('/sub/chatroom/'+ room_id, {}, JSON.stringify(chat));
+        console.log("전송 버튼 클릭 이벤트 : roomId : " + roomId);
+        stompClient.send('/sub/chatroom/'+ roomId, {}, JSON.stringify(chat));
         
         // 채팅 입력창 비우고 포커스
         $('.write-message').val('').focus();
@@ -430,13 +430,13 @@ $(document).ready(function() {
    	 
    	 console.log("printChat : " + chat);
    	 
-   	 $('.chat .header-chat .name').attr('id', "chat_" + chat.room_id);
+   	 $('.chat .header-chat .name').attr('id', "chat_" + chat.roomId);
    	 
    	 // 채팅 내용이 있을 때만 출력
    	 if(chat.content != null){
 
    			// 상대방의 채팅 내용
-   		if(chat.sender != login_id){
+   		if(chat.sender != loginId){
    			var content = '<div class="message">' +
    			'<div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">' +
    			'<div class="online"></div></div>' + 

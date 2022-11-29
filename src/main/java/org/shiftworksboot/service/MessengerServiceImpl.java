@@ -1,10 +1,8 @@
 package org.shiftworksboot.service;
 
 import lombok.RequiredArgsConstructor;
-import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
 import org.shiftworksboot.repository.ChatRoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +44,14 @@ public class MessengerServiceImpl implements MessengerService{
     public ChatRoom getChatRoom(String roomId) {
 
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(EntityNotFoundException::new);
+
+        return chatRoom;
+    }
+
+    public ChatRoom createChatRoom(String empId, String roomName) {
+
+        ChatRoom chatRoom = ChatRoom.createChatRoom(roomName);
+        //ChatRoomRepository.save(chatRoom);
 
         return chatRoom;
     }
