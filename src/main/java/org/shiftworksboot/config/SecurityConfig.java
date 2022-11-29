@@ -1,4 +1,7 @@
 package org.shiftworksboot.config;
+import lombok.AllArgsConstructor;
+import org.shiftworksboot.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,23 +13,47 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    EmployeeService employeeService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/users/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("empId")
+                .failureUrl("/users/login/error")
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .logoutSuccessUrl("/");
 
+        http.authorizeRequests()
+                .mvcMatchers("/task/new").hasRole("USER");
+
+        http.exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/error");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico", "/users/login/error");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(employeeService)
+                .passwordEncoder(passwordEncoder());
+    }
 }
