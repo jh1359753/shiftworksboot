@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/includes/header.jsp"%>
+<%--<%@ include file="/WEB-INF/views/includes/header.jsp"%>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -8,8 +8,23 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<script type="text/javascript" src="/resources/js/task.js"></script>
-<link rel="stylesheet" href="/resources/css/task.css">
+
+
+	<!-- JQuery 라이브러리 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+
+	<script type="text/javascript" src="/resources/js/task.js"></script>
+	<link rel="stylesheet" href="/resources/css/task.css">
 <meta charset="UTF-8">
 <title>업무 관리</title>
 </head>
@@ -22,7 +37,7 @@
 			<tr>
 				<td colspan="5">
 					<div class="dropdown">
-						<button class="btn btn-outline-secondary dropdown-toggle selectedDept" type="button"
+						<%--<button class="btn btn-outline-secondary dropdown-toggle selectedDept" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false"
 							value='<c:out value="${ dto.cri.dept_id }"></c:out>'>
 							부서
@@ -32,7 +47,7 @@
 							<li><a class="dropdown-item dept" href="#">dept1</a></li>
 							<li><a class="dropdown-item dept" href="#">dept2</a></li>
 							<li><a class="dropdown-item dept" href="#">dept3</a></li>
-						</ul>
+						</ul>--%>
 						<button class="btn btn-outline-secondary dropdown-toggle searchType" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false" value="T">
 							제목</button>
@@ -60,12 +75,12 @@
 				<td class="writer">작성자</td>
 				<td class="writer">비공개여부</td>
 			</tr>
-			<c:forEach items="${dto.list}" var="task">
+			<c:forEach items="${tasks}" var="task">
 				<tr class="goDetail" id="${task.task_id}">
 					<td><c:out value="${task.task_id}"/></td>
-					<td><c:out value="${task.dept_name}"/></td>
+					<td><c:out value="${task.dept_id}"/></td>
 					<td><c:out value="${task.task_title}"/></td>
-					<td><c:out value="${task.name}"/></td>
+					<td>홍길동</td>
 					<td><c:out value="${task.t_private}"/></td>
 				</tr>
 			</c:forEach>
@@ -76,15 +91,17 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<!-- 이전버튼 출력 -->
-							<c:if test="${ dto.prev }">
+							<c:if test="${ !taskPage.first }">
 								<li class="page-item"><a class="page-link prev" href="#">이전</a></li>
 							</c:if>
 							<!-- 검색조건에 맞는 게시글 총량에 따라 페이징처리 -->
-							<c:forEach begin="${ dto.startPage }" end="${ dto.endPage }" var="i">
-								<li class="page-item"><a class="page-link pageNum" href="#">${ i }</a></li>
+							<c:forEach begin="${ 0 }"
+							 			end="${ 2 }"
+									   var="i">
+								<li class="page-item"><a class="page-link pageNum" href="#">${ (i + 1) }</a></li>
 							</c:forEach>
 							<!-- 다음버튼 출력 -->
-							<c:if test="${ dto.next }">
+							<c:if test="${ !taskPage.last }">
 								<li class="page-item"><a class="page-link next" href="#">다음</a></li>
 							</c:if>
 						</ul>
@@ -102,14 +119,14 @@
 		
 		/* 부서 목록부분 변경 시 함께 변경하기 */
 		// 선택된 부서 존재 시 해당 항목으로 출력
-		if($('.selectedDept').val() == 'dept_1') {
-			$('.selectedDept').text('dept_1');
+		if($('.selectedDept').val() == 'dept1') {
+			$('.selectedDept').text('dept1');
 		}
-		if($('.selectedDept').val() == 'dept_2') {
-			$('.selectedDept').text('dept_2');
+		if($('.selectedDept').val() == 'dept2') {
+			$('.selectedDept').text('dept2');
 		}
-		if($('.selectedDept').val() == 'dept_3') {
-			$('.selectedDept').text('dept_3');
+		if($('.selectedDept').val() == 'dept3') {
+			$('.selectedDept').text('dept3');
 		}
 		
 		// model attribute 값을 이용하기 위해 변수에 저장

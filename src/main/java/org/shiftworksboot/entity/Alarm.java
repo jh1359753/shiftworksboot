@@ -17,8 +17,9 @@ public class Alarm {
     private Integer alarm_id;
 
     private String content;
-    private String emp_id;
-    private String dept_id;
-    private String date_created;
+
+    // 로그인 구현 후 수정
+    // private String emp_id;
+    // private String dept_id;
 
 }
