@@ -5,7 +5,9 @@ import lombok.extern.java.Log;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.dto.TaskDto;
 import org.shiftworksboot.dto.TaskFormDto;
+import org.shiftworksboot.entity.Employee;
 import org.shiftworksboot.entity.Task;
+import org.shiftworksboot.repository.EmployeeRepository;
 import org.shiftworksboot.repository.TaskRepository;
 import org.shiftworksboot.service.TaskService;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +32,7 @@ import java.util.Optional;
 public class TaskController {
 
     private final TaskRepository taskRepository;
+    private final EmployeeRepository employeeRepository;
     private final TaskService taskService;
 
 
@@ -89,7 +94,10 @@ public class TaskController {
     @GetMapping("/pages/{dept_id}/{type}/{keyword}/{pageNum}/{task_id}")
     public ModelAndView getTask(@PathVariable String dept_id, @PathVariable String type,
                                 @PathVariable String keyword, @PathVariable Optional<Integer> pageNum,
-                                @PathVariable Integer task_id) {
+                                @PathVariable Integer task_id, Authentication auth) {
+
+        ModelAndView mav = new ModelAndView();
+
 
         // 선택 게시물 조회
         Task task = taskRepository.findById(task_id)
@@ -97,11 +105,22 @@ public class TaskController {
 
         // Task 객체를 DTO 객체로 변환
         TaskDto taskDto = new TaskDto(task);
+        taskDto.setWriter(employeeRepository.findByEmpId(task.getCreatedBy()).getName());
+
+        // 로그인 유저가 접근 권한이 없을 경우 denied 페이지로 이동
+        UserDetails ud = (UserDetails) auth.getPrincipal();
+        Employee emp = employeeRepository.findByEmpId(ud.getUsername());
+        if(!emp.getDepartment().getDeptId().equals(taskDto.getDept_id().toString())) {
+            mav.setViewName("accessDenied");
+            return mav;
+        }
 
         // view로 결과를 전달하기 위한 ModelAndView
-        ModelAndView mav = new ModelAndView();
         mav.setViewName("/task/TSK_detail");
+        // 조회한 업무 객체
         mav.addObject("task", taskDto);
+        // 로그인 유저의 정보
+        mav.addObject("emp", emp);
 
         return mav;
     }
