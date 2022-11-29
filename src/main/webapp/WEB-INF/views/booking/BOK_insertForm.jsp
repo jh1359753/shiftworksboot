@@ -41,7 +41,6 @@
 	</div> --%>
 
 
-	<form action="/booking/new" method="post" role="form">
 	<div class="insertForm" id="insertForm">
 			<table>
 			<div class="form-body">
@@ -112,7 +111,7 @@
 			</div> <!-- end form-body class -->
 
 	</div> <!-- end insertForm class -->
-	</form>
+
 	<!-- <b><input id="datetimepicker" type="text" name="book_date"><br></b> -->
 	</div> <!-- end container -->
 
@@ -157,10 +156,10 @@
 					meetingRoom:$("select[name='meetingRoom']").val(),
 					// emp_id: emp_id.val(), //로그인 세션으로 구현
 					// dept_id: dept_id.val(), //로그인 세션으로 구현
-					book_begin: book_begin.val(),
-					book_date: book_date.val(),
-					book_title: book_title.val(),
-					book_content: book_content.val(),
+					bookBegin: book_begin.val(),
+					bookDate: book_date.val(),
+					bookTitle: book_title.val(),
+					bookContent: book_content.val(),
 					csrf_token:csrf_token,
 		            csrf_header:csrf_header
 			};
@@ -169,12 +168,11 @@
 			bookingService.insertBooking(bookingData, function(result){
 						if(result == "success"){
 							alert("예약되었습니다");
-							$(location).attr('href', '/booking/new');
+							$(location).attr('href', '/booking/main');
 						}else if(result =="fail"){
-							alert("예약 실패! 다시 시도해주세요");
+							alert("이미 예약된 시간입니다. 다시 시도해주세요");
 						}
 					})//end insertBooking
-
 	});
 
 	});

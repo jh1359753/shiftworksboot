@@ -10,10 +10,10 @@ import javax.persistence.GeneratedValue;
 @Getter @Setter
 public class BookingDto {
 
-    private String book_title;
-    private String book_content;
-    private String book_date;
-    private String book_begin;
+    private String bookTitle;
+    private String bookContent;
+    private String bookDate;
+    private String bookBegin;
     private String meetingRoom;
 
     private static ModelMapper modelMapper;

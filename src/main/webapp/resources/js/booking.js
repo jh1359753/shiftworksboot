@@ -27,7 +27,7 @@ var bookingService = (function(){
 	}//end insertBooking
 	
 	function listBookingCal(callback, error){
-		$.get("/booking/cal", function(result){
+		$.get("/booking/main", function(result){
 			if(callback){
 				callback(result);
 			}

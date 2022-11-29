@@ -18,18 +18,18 @@ public class Booking {
     @Column(name = "book_id")
     private int book_id;
 
-    private String book_title;
-    private String book_content;
-    private String book_date;
-    private String book_begin;
+    private String bookTitle;
+    private String bookContent;
+    private String bookDate;
+    private String bookBegin;
     private String meetingRoom;
 
     public static Booking createBooking(BookingDto bookingDto){
         Booking booking = new Booking();
-        booking.setBook_title(bookingDto.getBook_title());
-        booking.setBook_content(bookingDto.getBook_content());
-        booking.setBook_date(bookingDto.getBook_date());
-        booking.setBook_begin(bookingDto.getBook_begin());
+        booking.setBookTitle(bookingDto.getBookTitle());
+        booking.setBookContent(bookingDto.getBookContent());
+        booking.setBookDate(bookingDto.getBookDate());
+        booking.setBookBegin(bookingDto.getBookBegin());
         booking.setMeetingRoom(bookingDto.getMeetingRoom());
 
         return booking;
