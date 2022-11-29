@@ -5,26 +5,22 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
-
 
 @Entity
-@Table(name="scrap")
+@Table(name="post")
 @Getter
 @Setter
 @ToString
 public class Scrap {
 
     @Id
+    @Column(name = "scrap_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int scrap_id;
+    private Integer scrap_id;
 
-    private Date scrap_date;
-    private String post_name;
-    private String post_content;
-    private Date post_regdate;
+    private String scrap_date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 }
