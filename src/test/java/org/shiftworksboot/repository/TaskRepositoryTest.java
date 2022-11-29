@@ -48,7 +48,7 @@ class TaskRepositoryTest {
             Task task = new Task();
             task.setTask_title("test" + i);
             task.setTask_content("test task");
-            task.setDept_id(TaskDept.dept1);
+            task.setDept_id(TaskDept.DEPT1);
 
             taskRepository.save(task);
         }
@@ -56,7 +56,7 @@ class TaskRepositoryTest {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QTask qTask = QTask.task;
         JPAQuery<Task> query = queryFactory.selectFrom(qTask)
-                .where(qTask.dept_id.eq(TaskDept.dept1))
+                .where(qTask.dept_id.eq(TaskDept.DEPT1))
                 .where(qTask.task_title.like("1"));
 
         List<Task> list = query.fetch();

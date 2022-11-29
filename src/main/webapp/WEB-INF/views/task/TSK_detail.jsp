@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%--<%@ include file="/WEB-INF/views/includes/header.jsp"%>--%>
+<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -9,40 +9,12 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-
-
-	<!-- JQuery 라이브러리 -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- CSS only -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
-
 	<script type="text/javascript" src="/resources/js/task.js"></script>
 <link rel="stylesheet" href="/resources/css/task.css">
 	<meta charset="UTF-8">
 <title>업무 관리</title>
 </head>
 <body>
-
-<%--<c:if test="${ fn:contains(task.t_private, 'Y') }">
-	
-		<script type="text/javascript">
-			var taskDept_id = '<c:out value="${ task.dept_id }"/>';
-			var principalDept_id = '<sec:authentication property="principal.employee.dept_id"/>';
-			console.log(taskDept_id);
-			console.log(principalDept_id);
-			if(taskDept_id != principalDept_id) {
-				location.href="/task/accessDenied";
-			}
-		</script>
-
-</c:if>--%>
 
 <div class="container">
 
@@ -67,9 +39,9 @@
 		</div>
 		<div class="mb-3">
 			<label for="name" class="form-label">작성자</label>
-			<input class="form-control" type="text" value="홍길동"
+			<input class="form-control" type="text" value="${task.writer}"
 				id="name" readonly>
-			<input class="form-control" type="hidden" value=""
+			<input class="form-control" type="hidden" value="${task.createBy}"
 				id="emp_id">
 		</div>
 		<div class="mb-3 form-check">
@@ -90,7 +62,7 @@
 				<c:out value="${task.task_content}"></c:out>
 			</textarea>
 		</div>
-		<%--<div class="mb-3">
+		<div class="mb-3">
 			<label for="formFileSm" class="form-label file">첨부파일</label>
 			<input class="form-control form-control-sm" id="formFileSm" type="file" readonly>
 			<ul class="taskFiles">
@@ -101,7 +73,7 @@
 					</li>
 				</c:forEach>
 			</ul>
-		</div>--%>
+		</div>
 		<div class="confirm">
 			<!-- 해당 게시글의 작성자인 경우에만 수정/삭제 메뉴 출력 -->
 			<button id="updateBtn" type="submit" class="own btn btn-warning mb-3">수정</button>
@@ -117,13 +89,13 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
-			/* var taskEmp_id =
-			var principalEmp_id =
+			var taskEmp_id = "${task.createBy}";
+			var principalEmp_id = "${emp.empId}";
 			console.log(taskEmp_id);
 			console.log(principalEmp_id);
 			if(taskEmp_id != principalEmp_id) {
 				$('.own').hide();
-			} */
+			}
 			
 			// 첨부파일 클릭 시 다운로드/삭제할 수 있도록 하는 url
 			$('.taskFiles li').each(function(i, obj){
