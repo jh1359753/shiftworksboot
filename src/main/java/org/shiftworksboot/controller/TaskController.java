@@ -118,11 +118,23 @@ public class TaskController {
         TaskDto taskDto = new TaskDto(task);
         taskDto.setWriter(employeeRepository.findByEmpId(task.getCreatedBy()).getName());
 
+        // 첨부파일 존재여부 확인
+        List<TaskFile> fileList = taskFileRepository.findByTask(task);
+        List<TaskFileDto> fileDtoList = new ArrayList<>();
+        if(!(fileList == null || fileList.size() <= 0)) {
+            fileList.forEach(file -> {
+                fileDtoList.add(new TaskFileDto(file));
+            });
+
+            taskDto.setFileList(fileDtoList);
+        }
+
         // 로그인 유저가 접근 권한이 없을 경우 denied 페이지로 이동
         UserDetails ud = (UserDetails) auth.getPrincipal();
         Employee emp = employeeRepository.findByEmpId(ud.getUsername());
         // 작성자는 확인할 수 있도록 추가
-        if(!emp.getDepartment().getDeptId().equals(taskDto.getDept_id().toString())) {
+        if(!emp.getDepartment().getDeptId().equals(taskDto.getDept_id().toString())
+            && !emp.getEmpId().equals(taskDto.getCreateBy())) {
             mav.setViewName("accessDenied");
             return mav;
         }
@@ -215,7 +227,7 @@ public class TaskController {
             produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<Resource> downloadFile(String fileName) {
 
-        FileSystemResource resource = new FileSystemResource("C:\\upload\\" + fileName);
+        FileSystemResource resource = new FileSystemResource("C:\\shiftworksboot\\upload\\" + fileName);
 
         // 다운로드 요청한 파일이 없는 경우
         if(resource.exists() == false) {

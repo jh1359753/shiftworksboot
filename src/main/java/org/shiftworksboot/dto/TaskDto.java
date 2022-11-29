@@ -31,7 +31,7 @@ public class TaskDto {
     private String writer;
 
     // 첨부파일 list
-    private List<TaskFile> fileList = new ArrayList<>();
+    private List<TaskFileDto> fileList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private TaskDept dept_id;

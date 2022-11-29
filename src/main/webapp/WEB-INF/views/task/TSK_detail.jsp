@@ -62,7 +62,7 @@
 				<c:out value="${task.task_content}"></c:out>
 			</textarea>
 		</div>
-		<%--<div class="mb-3">
+		<div class="mb-3">
 			<label for="formFileSm" class="form-label file">첨부파일</label>
 			<input class="form-control form-control-sm" id="formFileSm" type="file" readonly>
 			<ul class="taskFiles">
@@ -73,7 +73,7 @@
 					</li>
 				</c:forEach>
 			</ul>
-		</div>--%>
+		</div>
 		<div class="confirm">
 			<!-- 해당 게시글의 작성자인 경우에만 수정/삭제 메뉴 출력 -->
 			<button id="updateBtn" type="submit" class="own btn btn-warning mb-3">수정</button>
