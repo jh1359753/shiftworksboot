@@ -9,8 +9,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%--<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />--%>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <link rel="stylesheet" href="/resources/css/post.css">
 
 <meta charset="UTF-8">
@@ -134,8 +134,8 @@ $(document).ready(function () {
 	var today = new Date();
 	formInputRegdate.attr("value",today);
 	
-	/*var csrf_token = $("meta[name='_csrf']").attr("content");
-	var csrf_header = $("meta[name='_csrf_header']").attr("content");*/
+	var csrf_token = $("meta[name='_csrf']").attr("content");
+	var csrf_header = $("meta[name='_csrf_header']").attr("content");
 	
 	
 	
@@ -168,9 +168,9 @@ $(document).ready(function () {
 	            //dept_id:formInputDept.val(), 추후 수정 예정
 	            content:formInputContent.val(),
 	            receivedept:formInputReceive.val(),
-			  	regdate:formInputRegdate.val()
-	            //csrf_token:csrf_token,
-	            //csrf_header:csrf_header,
+			  	regdate:formInputRegdate.val(),
+	            csrf_token:csrf_token,
+	            csrf_header:csrf_header
 	            //fileList: fileList
 	          };
 	      
@@ -208,9 +208,9 @@ $(document).ready(function () {
 	 	            post_name:formInputTitle.val(),
 	 	            emp_id:formInputEmp.val(), 
 	 	            dept_id:formInputDept.val(),
-	 	            post_content:formInputContent.val()
-	 	           	//csrf_token:csrf_token,
-		            //csrf_header:csrf_header
+	 	            post_content:formInputContent.val(),
+	 	           	csrf_token:csrf_token,
+		            csrf_header:csrf_header
 	 	          };
 	    	 
 	    	 
@@ -365,4 +365,5 @@ $(document).ready(function () {
 
 	});
 </script>
-<%@include file="/WEB-INF/views/includes/footer.jsp"%>
+<%--
+<%@include file="/WEB-INF/views/includes/footer.jsp"%>--%>

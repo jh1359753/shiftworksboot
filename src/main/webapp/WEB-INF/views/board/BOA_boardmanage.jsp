@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="/resources/css/post.css">
 
 <meta charset="UTF-8">
-<%--<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />--%>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <title></title>
 </head>
 <body>
@@ -51,8 +51,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	
-	/*var csrf_token = $("meta[name='_csrf']").attr("content");
-	var csrf_header = $("meta[name='_csrf_header']").attr("content");*/
+	var csrf_token = $("meta[name='_csrf']").attr("content");
+	var csrf_header = $("meta[name='_csrf_header']").attr("content");
 	
 	//게시판 목록불러오기
 	 postService.allBoardList(function(result){
@@ -84,8 +84,8 @@ $(document).ready(function () {
 		
 		var post={
 				b_id:b_id,
-				/*csrf_token:csrf_token,
-				csrf_header:csrf_header*/
+				csrf_token:csrf_token,
+				csrf_header:csrf_header
 		}
 		
 		postService.deleteBoard(post,function(result){

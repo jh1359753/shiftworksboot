@@ -8,8 +8,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%--<meta name="_csrf" content="${_csrf.token}" />
-<meta name="_csrf_header" content="${_csrf.headerName}" />--%>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
 <link rel="stylesheet" href="/resources/css/post.css">
 
 <meta charset="UTF-8">
@@ -71,8 +71,8 @@
 <script type="text/javascript">
 $(document).ready(function () {
 		
-	//var csrf_token = $("meta[name='_csrf']").attr("content");
-	//var csrf_header = $("meta[name='_csrf_header']").attr("content");
+	var csrf_token = $("meta[name='_csrf']").attr("content");
+	var csrf_header = $("meta[name='_csrf_header']").attr("content");
 	
 	//글 등록 버튼 클릭 시 post db에 저장하기 
 	  $("#registerBtn").on("click",function(e){
@@ -85,9 +85,9 @@ $(document).ready(function () {
 		  var post ={
 				  name:name,
 			      content:content,
-			      pri:pri
-				 // csrf_token:csrf_token,
-				 // csrf_header:csrf_header
+			      pri:pri,
+				  csrf_token:csrf_token,
+				  csrf_header:csrf_header
 		  }
 		  
 		   postService.insertNewBoard(post,function(result){
