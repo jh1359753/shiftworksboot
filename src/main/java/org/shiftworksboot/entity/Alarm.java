@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "alarm")
 @Getter @Setter @ToString
-public class Alarm {
+public class Alarm extends BaseTimeEntity{
 
     @Id
     @Column(name = "alarm_id")
@@ -21,7 +21,5 @@ public class Alarm {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_id")
     private Employee employee;
-
-    private String deptId;
 
 }

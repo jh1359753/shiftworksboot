@@ -31,16 +31,18 @@ public class TaskService {
 
         taskRepository.save(task);
 
-        Alarm alarm = new Alarm();
-        alarm.setContent("[" + task.getTask_title() + "] 업무가 등록되었습니다.");
-
         // 해당 업무 부서의 부서원들에게 알림 생성
-        //List<Employee> employees = employeeRepository.findByDeptId(taskFormDto.getDept_id());
+        List<Employee> employees = employeeRepository.findByDepartmentDeptId(taskFormDto.getDept_id().toString());
 
-        //alarmRepository.save(alarm);
+        for(Employee e : employees) {
 
+            Alarm alarm = new Alarm();
+            alarm.setContent("[" + task.getTask_title() + "] 업무가 등록되었습니다.");
 
+            alarm.setEmployee(employeeRepository.findByEmpId(e.getEmpId()));
+            alarmRepository.save(alarm);
 
+        }
     }
 
     public String deleteTask(Integer task_id) {
