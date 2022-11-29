@@ -121,6 +121,7 @@ public class TaskController {
         // 로그인 유저가 접근 권한이 없을 경우 denied 페이지로 이동
         UserDetails ud = (UserDetails) auth.getPrincipal();
         Employee emp = employeeRepository.findByEmpId(ud.getUsername());
+        // 작성자는 확인할 수 있도록 추가
         if(!emp.getDepartment().getDeptId().equals(taskDto.getDept_id().toString())) {
             mav.setViewName("accessDenied");
             return mav;
@@ -154,7 +155,6 @@ public class TaskController {
         return new ResponseEntity<String>(taskService.deleteTask(task_id), HttpStatus.OK);
     }
 
-    // 파일 등록
     // 파일 등록
     @PostMapping(value = "/uploadFile")
     public ResponseEntity<List<TaskFileDto>> uploadFile(MultipartFile[] uploadFile) {

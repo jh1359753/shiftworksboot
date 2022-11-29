@@ -5,9 +5,12 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.entity.Task;
+import org.shiftworksboot.entity.TaskFile;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class TaskFormDto {
@@ -18,6 +21,11 @@ public class TaskFormDto {
     private Character t_private;
     private Character notification;
     private TaskDept dept_id;
+
+
+    // 첨부파일 저장을 위한 list
+    private List<TaskFileDto> fileList = new ArrayList<>();
+
 
     // Task 객체 - TaskFormDto 객체 변환을 위한 모델 매퍼
     private static ModelMapper modelMapper = new ModelMapper();

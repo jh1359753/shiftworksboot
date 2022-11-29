@@ -6,11 +6,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.entity.Task;
+import org.shiftworksboot.entity.TaskFile;
 import org.shiftworksboot.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter @ToString
 public class TaskDto {
@@ -26,6 +29,9 @@ public class TaskDto {
 
     private String createBy;
     private String writer;
+
+    // 첨부파일 list
+    private List<TaskFile> fileList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private TaskDept dept_id;
