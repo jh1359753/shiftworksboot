@@ -12,14 +12,13 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,20 +30,34 @@ public class MessengerController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final MessengerService messengerService;
 
+    // 채팅방 생성
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/messenger/chatroom/new")
+    public void createChatRoom(String chatroomName, Authentication auth) {
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+
+        messengerService.insertChatRoom(chatroomName, userDetails.getUsername());
+
+    }
+
     // 채팅방 목록 조회
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/messenger/chat")
     public String chat(Model model, Authentication auth) {
 
-//        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-//
-//        List<ChatRoom> chatRoomList = messengerService.getChatRoomList(userDetails.getUsername());
-//
-//        model.addAttribute("chatRoomList", chatRoomList);
 
-//		log.info("@ChatRoomController, GET Chat / Username : " + userDetails.getUsername());
-		List<ChatRoom> chatRoomList = messengerService.getChatRoomList("1");
-		model.addAttribute("chatRoomList", chatRoomList);
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+
+        List<ChatRoom> chatRoomList = messengerService.getChatRoomList(userDetails.getUsername());
+        log.info("@MessengerController, GET Chat / Username : " + userDetails.getUsername());
+
+        model.addAttribute("chatRoomList", chatRoomList);
+
+        log.info("messengerController : " + chatRoomList.toString());
+
+
+//		List<ChatRoom> chatRoomList = messengerService.getChatRoomList("1");
+//		model.addAttribute("chatRoomList", chatRoomList);
 //
 //		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //

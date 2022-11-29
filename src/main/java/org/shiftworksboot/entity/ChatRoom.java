@@ -21,17 +21,18 @@ public class ChatRoom {
     private String roomName;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_id")
+    @JoinColumn(name = "chat_id", nullable = false)
     private Chat lastchat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_id")
     private Employee employee;
 
-    public static ChatRoom createChatRoom(String roomName) {
+    public static ChatRoom createChatRoom(String roomName, Employee employee) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString();
         chatRoom.setRoomName(roomName);
+        chatRoom.setEmployee(employee);
         return chatRoom;
     }
 }

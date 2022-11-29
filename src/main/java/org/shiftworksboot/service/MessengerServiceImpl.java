@@ -2,7 +2,9 @@ package org.shiftworksboot.service;
 
 import lombok.RequiredArgsConstructor;
 import org.shiftworksboot.entity.ChatRoom;
+import org.shiftworksboot.entity.Employee;
 import org.shiftworksboot.repository.ChatRoomRepository;
+import org.shiftworksboot.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MessengerServiceImpl implements MessengerService{
 
-
+    private final EmployeeRepository employeeRepository;
     private final ChatRoomRepository chatRoomRepository;
 
     private Map<String, ChatRoom> chatRoomMap;
@@ -33,11 +35,6 @@ public class MessengerServiceImpl implements MessengerService{
         // 채팅방 불러오기
         List<ChatRoom> chatRoomList = chatRoomRepository.findChatRooms(empId);
 
-        if (chatRoomList == null || chatRoomList.isEmpty()) {
-            // 찾지 못할 경우 예외 처리
-            throw new EntityNotFoundException();
-        }
-
         return chatRoomList;
     }
 
@@ -47,10 +44,16 @@ public class MessengerServiceImpl implements MessengerService{
 
         return chatRoom;
     }
+    @Override
+    public ChatRoom insertChatRoom(String empId, String chatroomName) {
 
-    public ChatRoom createChatRoom(String empId, String roomName) {
+        Employee findEmployee = employeeRepository.findByEmpId(empId);
 
-        ChatRoom chatRoom = ChatRoom.createChatRoom(roomName);
+        if(findEmployee == null){
+            new EntityNotFoundException();
+        }
+
+        ChatRoom chatRoom = ChatRoom.createChatRoom(chatroomName, findEmployee);
         //ChatRoomRepository.save(chatRoom);
 
         return chatRoom;

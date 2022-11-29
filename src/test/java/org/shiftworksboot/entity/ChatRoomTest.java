@@ -3,7 +3,9 @@ package org.shiftworksboot.entity;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shiftworksboot.constant.Role;
 import org.shiftworksboot.repository.ChatRoomRepository;
+import org.shiftworksboot.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -24,7 +26,7 @@ class ChatRoomTest {
     ChatRoomRepository chatRoomRepository;
 
     @Autowired
-    //EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
 
     @PersistenceContext
     EntityManager em;
@@ -33,13 +35,13 @@ class ChatRoomTest {
     public Employee createEmployee(){
 
         Department department = new Department();
-        department.setDept_id("1");
+        department.setDeptId("1");
         department.setDept_name("개발팀");
-        department.setAuthority("USER");
+        department.setAuthority(Role.USER);
 
         Employee employee = new Employee();
-        employee.setEmp_id("1");
-        //employee.setDepartment(department);
+        employee.setEmpId("1");
+        employee.setDepartment(department);
         employee.setName("홍길동");
 
         //employeeRepository.save(employee);
@@ -72,8 +74,8 @@ class ChatRoomTest {
         Employee employee = createEmployee();
 
         for (int i = 1; i <= 3; i++) {
-            ChatRoom chatRoom = ChatRoom.createChatRoom("testRoom" + i);
-            chatRoom.setEmployee(employee);
+            ChatRoom chatRoom = ChatRoom.createChatRoom("testRoom" + i, employee);
+
             chatRoomRepository.save(chatRoom);
         }
 
