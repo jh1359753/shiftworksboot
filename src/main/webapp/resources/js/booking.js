@@ -2,17 +2,17 @@
 
 var bookingService = (function(){
 	
-	function insertBooking(bookingDto, callback, error){
+	function insertBooking(bookingData, callback, error){
 		console.log("*insertBooking Process*...........");
 		
 		$.ajax({
 			type: 'post',
 			url: '/booking/new',
-			// data: JSON.stringify(bookingDto),
-			// beforeSend : function(xhr){
-            //     xhr.setRequestHeader(bookingData.csrf_header, bookingData.csrf_token);
-            // },
-			//contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(bookingData),
+			beforeSend : function(xhr){
+                xhr.setRequestHeader(bookingData.csrf_header, bookingData.csrf_token);
+            },
+			contentType: "application/json; charset=utf-8",
 			success: function(result, status, xhr){
 				if(callback){
 					callback(result);

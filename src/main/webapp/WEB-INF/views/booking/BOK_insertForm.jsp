@@ -108,7 +108,7 @@
 				</tr>
 				</table>
 			
-			<button id="submitBtn" type="submit" class="btn btn-primary">예약</button>
+			<button id="submitBtn" type="button" class="btn btn-primary">예약</button>
 			</div> <!-- end form-body class -->
 
 	</div> <!-- end insertForm class -->
@@ -135,57 +135,43 @@
 		    });
 		});
 
-
-
-		// //예약폼 데이터
-		// var form = $(".insertForm");
-		// var book_id = form.find("input[name='book_id']");
-		// var rsc_id = form.find("select[name='rsc_id']");
-		// var emp_id = form.find("input[name='emp_id']");
-		// var dept_id = form.find("input[name='dept_id']");
-		// var book_date = form.find("input[name='book_date']");
-		// var book_begin = form.find("select[name='book_begin']");
-		// var book_title = form.find("input[name='book_title']");
-		// var book_content = form.find("textarea[name='book_content']");
-
 		//예약폼 데이터
-	// 	var form = $(".insertForm");
-	// 	// var book_id = form.find("input[name='book_id']");
-	// 	var meetingRoom = form.find("select[name='meetingRoom']");
-	// 	var book_date = form.find("input[name='book_date']");
-	// 	var book_begin = form.find("select[name='book_begin']");
-	// 	var book_title = form.find("input[name='book_title']");
-	// 	var book_content = form.find("textarea[name='book_content']");
-	//
-	// 	// var csrf_token = $("meta[name='_csrf']").attr("content");
-	// 	// var csrf_header = $("meta[name='_csrf_header']").attr("content");
-	//
+		var form = $(".insertForm");
+		// var book_id = form.find("input[name='book_id']");
+		var meetingRoom = form.find("select[name='meetingRoom']");
+		var book_date = form.find("input[name='book_date']");
+		var book_begin = form.find("select[name='book_begin']");
+		var book_title = form.find("input[name='book_title']");
+		var book_content = form.find("textarea[name='book_content']");
+		var csrf_token = $("meta[name='_csrf']").attr("content");
+		var csrf_header = $("meta[name='_csrf_header']").attr("content");
+
 	// 	//제출 버튼 클릭 시 bookingData에 데이터 JSON형식으로 저장, 예약 프로세스 진행 후 결과값 출력
 		$('#submitBtn').on("click", function(e){
 			// $('.submitBtn').prop("type", "submit");
 
-			var bookingDto = $(".insertForm");
+			var bookingData = $(".insertForm");
 
-			// var bookingDto = {
-			// 		// book_id: book_id.val(), //자동생성이라 삭제 예정
-			// 		meetingRoom:$("select[name='meetingRoom']").val(),
-			// 		// emp_id: emp_id.val(), //로그인 세션으로 구현
-			// 		// dept_id: dept_id.val(), //로그인 세션으로 구현
-			// 		book_begin: book_begin.val(),
-			// 		book_date: book_date.val(),
-			// 		book_title: book_title.val(),
-			// 		book_content: book_content.val()
-			// 		// csrf_token:csrf_token,
-		    //         // csrf_header:csrf_header
-			// };
+			var bookingData = {
+					// book_id: book_id.val(), //자동생성이라 삭제 예정
+					meetingRoom:$("select[name='meetingRoom']").val(),
+					// emp_id: emp_id.val(), //로그인 세션으로 구현
+					// dept_id: dept_id.val(), //로그인 세션으로 구현
+					book_begin: book_begin.val(),
+					book_date: book_date.val(),
+					book_title: book_title.val(),
+					book_content: book_content.val(),
+					csrf_token:csrf_token,
+		            csrf_header:csrf_header
+			};
 
 
-			bookingService.insertBooking(bookingDto, function(result){
+			bookingService.insertBooking(bookingData, function(result){
 						if(result == "success"){
 							alert("예약되었습니다");
 							$(location).attr('href', '/booking/new');
 						}else if(result =="fail"){
-							alert("이미 예약된 시간입니다")
+							alert("예약 실패! 다시 시도해주세요");
 						}
 					})//end insertBooking
 

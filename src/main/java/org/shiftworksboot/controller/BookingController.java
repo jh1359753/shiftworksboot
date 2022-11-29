@@ -25,20 +25,11 @@ public class BookingController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<String> insertBooking(BookingDto bookingDto){
+    public ResponseEntity<String> insertBooking(@RequestBody BookingDto bookingDto){
         Booking booking = Booking.createBooking(bookingDto);
         Booking savedBooking = service.insertBooking(booking);
         System.out.println("BookingController 결과값.............:"+savedBooking);
 
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("/");
-//        if(savedBooking!=null){
-//            mav.addObject("예약이 완료되었습니다. 예약번호는 "+savedBooking.getBook_id()+"입니다");
-//        }else{
-//            mav.addObject("예약 실패! 다시 시도해주세요");
-//        }
-//
-//        return mav;
 
         return savedBooking != null
                 ? new ResponseEntity<>("success", HttpStatus.OK)
