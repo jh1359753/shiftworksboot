@@ -8,5 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface TaskRepositoryCustom {
 
     Page<Task> getListWithPaging(TaskDto taskDto, Pageable pageable);
+    Integer getTotalCount(TaskDto taskDto);
 
 }

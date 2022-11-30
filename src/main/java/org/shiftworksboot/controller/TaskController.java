@@ -90,12 +90,16 @@ public class TaskController {
 
         Page<Task> tasks = taskRepository.getListWithPaging(taskDto, pageable);
 
+        Integer taskCount = taskRepository.getTotalCount(taskDto);
+
+        int totalCount = taskCount%10 > 0 ? taskCount/10 + 1 : taskCount/10;
+
         // view로 결과를 전달하기 위한 ModelAndView
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/task/TSK_list");
         mav.addObject("tasks", tasks.getContent());
         mav.addObject("taskPage", tasks);
-        mav.addObject("totalPages", tasks.getTotalPages());
+        mav.addObject("totalCount", --totalCount);
 
         return mav;
     }

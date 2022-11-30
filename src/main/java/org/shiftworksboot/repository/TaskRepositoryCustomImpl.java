@@ -46,6 +46,18 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
         return new PageImpl<Task>(taskList, pageable, taskList.size());
     }
 
+    @Override
+    public Integer getTotalCount(TaskDto taskDto) {
+        QTask qTask = QTask.task;
+        List<Task> taskList = queryFactory
+                .selectFrom(qTask)
+                .where(searchTitle(taskDto.getTask_title()),
+                        searchContent(taskDto.getTask_content()),
+                        selectDept(taskDto.getDept_id()))
+                .fetch();
+        return taskList.size();
+    }
+
 
     // where절 조건 입력을 위한 BooleanExpression
 
