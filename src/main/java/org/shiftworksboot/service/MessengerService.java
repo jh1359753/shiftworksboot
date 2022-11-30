@@ -1,9 +1,7 @@
 package org.shiftworksboot.service;
 
+import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
-import org.shiftworksboot.entity.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +11,7 @@ public interface MessengerService {
     List<ChatRoom> getChatRoomList(String empId);
     ChatRoom getChatRoom(String roomId);
 
-    ChatRoom insertChatRoom(String empId, String chatroomName);
+    ChatRoom insertChatRoom(String empId);
 
+    List<Chat> getChatList(String roomUuid);
 }

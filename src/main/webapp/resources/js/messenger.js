@@ -5,13 +5,16 @@
 var messengerService = (function () {
 
     var csrf_token = $("meta[name='_csrf']").attr("content");
-	var csrf_header = $("meta[name='_csrf_header']").attr("content");
+    var csrf_header = $("meta[name='_csrf_header']").attr("content");
 
  	function getChatRoom(emp_id, callback, error){
+
+        console.log("messengerService.js : getChatRoom : csrf_header : " + csrf_header);
+        console.log("messengerService.js : getChatRoom : csrf_token : " + csrf_token);
  		
  		$.ajax({
  			type: 'GET',
- 			url: '/messenger/chat',
+ 			url: '/messenger/chatroom',
  			beforeSend : function(xhr){
                 xhr.setRequestHeader(csrf_header, csrf_token);
             },
@@ -30,7 +33,11 @@ var messengerService = (function () {
  	}
     
     function getChat(room_id, callback, error) {
-  		
+
+        console.log("messengerService.js : getChat : room_id : " + room_id);
+        console.log("messengerService.js : getChat : csrf_header : " + csrf_header);
+        console.log("messengerService.js : getChat : csrf_token : " + csrf_token);
+
         $.ajax({
             type: 'GET',
             url: '/messenger/chat/room/' + room_id,
@@ -39,18 +46,18 @@ var messengerService = (function () {
                 xhr.setRequestHeader(csrf_header, csrf_token);
             },
             success: function (data, status, xhr) {
+                console.log("messengerService.js : getChat : success");
                 if (callback) {
                     callback(data);
                 }
             },
             error : function (xhr, status, err) {
+                console.log("messengerService.js : getChat : error" + err);
                 if (error) {
                     error(err);
                 }
             }
-
         });
-
     } // end getChat function
 
 
@@ -89,6 +96,7 @@ var messengerService = (function () {
 return {
     getChat: getChat,
     sendChat: sendChat,
+    getChatRoom: getChatRoom
 };
 
 }) ();

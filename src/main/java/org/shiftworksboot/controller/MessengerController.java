@@ -32,11 +32,11 @@ public class MessengerController {
 
     // 채팅방 생성
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/messenger/chatroom/new")
-    public void createChatRoom(String chatroomName, Authentication auth) {
+    @GetMapping("/messenger/chatroom")
+    public void createChatRoom(@PathVariable String chatroomName, Authentication auth) {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
 
-        messengerService.insertChatRoom(chatroomName, userDetails.getUsername());
+        messengerService.insertChatRoom(userDetails.getUsername());
 
     }
 
@@ -48,12 +48,10 @@ public class MessengerController {
 
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
 
-        List<ChatRoom> chatRoomList = messengerService.getChatRoomList(userDetails.getUsername());
+        List<ChatRoom> chatRoomDtoList = messengerService.getChatRoomList(userDetails.getUsername());
         log.info("@MessengerController, GET Chat / Username : " + userDetails.getUsername());
 
-        model.addAttribute("chatRoomList", chatRoomList);
-
-        log.info("messengerController : " + chatRoomList.toString());
+        model.addAttribute("chatRoomDtoList", chatRoomDtoList);
 
 
 //		List<ChatRoom> chatRoomList = messengerService.getChatRoomList("1");
@@ -68,6 +66,16 @@ public class MessengerController {
 
         return "messenger/MSG_main";
     }
+
+    // 선택된 채팅방의 정보 요청
+    @GetMapping("/messenger/chat/room/{room_id}")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    public ResponseEntity<List<Chat>> getChat(@PathVariable("room_id") String roomId) {
+        log.info("@ChatRoomController, GET getChat...............");
+        return new ResponseEntity<>(messengerService.getChatList(roomId), HttpStatus.OK);
+    }
+
 
 
     // stomp

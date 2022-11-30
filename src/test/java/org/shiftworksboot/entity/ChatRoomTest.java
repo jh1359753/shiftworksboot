@@ -52,11 +52,14 @@ class ChatRoomTest {
     public void createChatRoom(){
 
         List<ChatRoom> chatRoomList = new ArrayList<>();
+        Employee employee = new Employee();
+        employee.setEmpId("user1");
+        employee.setPassword("pw1");
+        employee.setName("홍길동");
 
         for (int i = 0; i < 10; i++){
-            ChatRoom chatRoom = new ChatRoom();
+            ChatRoom chatRoom = ChatRoom.createChatRoom(employee);
             chatRoom.setRoomName("테스트" + i);
-            chatRoom.setEmployee(createEmployee());
             chatRoomList.add(chatRoom);
             chatRoomRepository.save(chatRoom);
         }
@@ -69,20 +72,21 @@ class ChatRoomTest {
     @DisplayName("emp_id로 채팅방 조회 테스트")
     public void findChatRooms() {
 
-        //createChatRoom();
+        createChatRoom();
 
-        Employee employee = createEmployee();
-
-        for (int i = 1; i <= 3; i++) {
-            ChatRoom chatRoom = ChatRoom.createChatRoom("testRoom" + i, employee);
-
-            chatRoomRepository.save(chatRoom);
-        }
+//        Employee employee = createEmployee();
+//        employeeRepository.save(employee);
+//
+//        for (int i = 1; i <= 3; i++) {
+//            ChatRoom chatRoom = ChatRoom.createChatRoom(employee);
+//
+//            chatRoomRepository.save(chatRoom);
+//        }
 
         em.flush();
         em.clear();
 
-        List<ChatRoom> chatRoomList = chatRoomRepository.findChatRooms("1");
+        List<ChatRoom> chatRoomList = chatRoomRepository.findChatRoomByEmployee_EmpId("user1");
 
         log.info("chatroomList : "+chatRoomList.toString());
     }
