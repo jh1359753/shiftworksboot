@@ -44,11 +44,10 @@
 <!-- 실시간 검색을 위한 라이브러리 -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-  
 <!-- custom style -->
 <link rel="stylesheet" href="/resources/css/messenger.css">
 
-<script type="text/javascript" src="/resources/js/service.js" />
+<script type="text/javascript" src="/resources/js/messenger.js" />
 <script type="text/javascript" src="/resources/js/sockjs.js" />
 <!-- <script type="text/javascript" src="/resources/js/messenger/event.js" /> -->
 
