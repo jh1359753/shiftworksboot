@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%--<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -283,7 +283,7 @@
 								<div class="card card-body"
 									style="height: 100px; border-width: 0;">
 									<ul>
-										<a href="/booking/calendar/view" class="btmmenu"><li>월별 예약 현황</li></a> <br>
+										<a href="/booking/main" class="btmmenu"><li>월별 예약 현황</li></a> <br>
 										<a href="/booking/new"><li>예약하기</li></a> <br>
 										<a href="/booking/list"><li>전체 예약보기</li></a> <br>
 									</ul>

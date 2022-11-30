@@ -3,6 +3,7 @@ package org.shiftworksboot.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.shiftworksboot.dto.BookingDto;
 
 import javax.persistence.*;
 
@@ -13,19 +14,26 @@ import javax.persistence.*;
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "book_id")
-    private int book_id;
+    @GeneratedValue
+    @Column(name = "bookId")
+    private int bookId;
 
-    private String book_date;
-    private String book_begin;
-    private int book_end;
-    private String book_title;
-    private String book_content;
+    private String bookTitle;
+    private String bookContent;
+    private String bookDate;
+    private String bookBegin;
+    private String meetingRoom;
 
-    @ManyToOne
-    @JoinColumn(name = "rsc_id")
-    private MeetingRoom meetingRoom;
+    public static Booking createBooking(BookingDto bookingDto){
+        Booking booking = new Booking();
+        booking.setBookTitle(bookingDto.getBookTitle());
+        booking.setBookContent(bookingDto.getBookContent());
+        booking.setBookDate(bookingDto.getBookDate());
+        booking.setBookBegin(bookingDto.getBookBegin());
+        booking.setMeetingRoom(bookingDto.getMeetingRoom());
 
-    //
+        return booking;
+    }
+
+
 }

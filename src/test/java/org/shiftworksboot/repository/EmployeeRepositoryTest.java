@@ -2,6 +2,7 @@ package org.shiftworksboot.repository;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shiftworksboot.entity.Department;
 import org.shiftworksboot.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,11 +14,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@TestPropertySource(locations = "classpath:application-test.yml")
+@TestPropertySource(properties = "classpath:application-test.yml")
 class EmployeeRepositoryTest {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -40,13 +44,36 @@ class EmployeeRepositoryTest {
     @DisplayName("계정 검색 테스트")
     public void searchEmp() {
         Employee employee = new Employee();
-        employee.setEmpId("test1");
+        employee.setEmpId("user1");
         employee.setPassword("1234");
         String password = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(password);
         employeeRepository.save(employee);
 
         System.out.println(employeeRepository.findByEmpId("test1"));
+    }
+
+    @Test
+    @DisplayName("부서원 검색 테스트")
+    public void searchDept() {
+
+        Department dept = new Department();
+        dept.setDeptId("DEPT1");
+        departmentRepository.save(dept);
+
+        for(int i=5; i<10; i++) {
+
+            Employee employee = new Employee();
+            employee.setEmpId("test" + i);
+            employee.setPassword("1234");
+            employee.setDepartment(dept);
+            String password = passwordEncoder.encode(employee.getPassword());
+            employee.setPassword(password);
+            employeeRepository.save(employee);
+        }
+
+        employeeRepository.findByDepartmentDeptId(dept.getDeptId());
+
     }
 
 }

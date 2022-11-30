@@ -1,4 +1,4 @@
-console.log("Insert Booking Page's JS.....");
+// console.log("Insert Booking Page's JS.....");
 
 var bookingService = (function(){
 	
@@ -27,7 +27,7 @@ var bookingService = (function(){
 	}//end insertBooking
 	
 	function listBookingCal(callback, error){
-		$.get("/booking/cal", function(result){
+		$.get("/booking/main", function(result){
 			if(callback){
 				callback(result);
 			}
@@ -51,6 +51,32 @@ var bookingService = (function(){
 			}
 		});
 	}//end getCalList
+
+
+
+	function insertRoom(registerData, callback, error){
+		console.log("registerRoom Process................");
+
+		$.ajax({
+			type: 'post',
+			url: '/admin/mtr/new',
+			//data: JSON.stringify(registerData),
+			// beforeSend : function(xhr){
+			// 	xhr.setRequestHeader(registerData.csrf_header, registerData.csrf_token);
+			// },
+			//contentType: "application/json; charset=utf-8",
+			success: function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			error: function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
+		})
+	}//end insertRoom
 	
 
 	
@@ -58,6 +84,7 @@ var bookingService = (function(){
 	return {name:"Reservation",
 			insertBooking:insertBooking,
 			getCalList:getCalList,
-			listBookingCal:listBookingCal
+			listBookingCal:listBookingCal,
+			insertRoom:insertRoom
 			};
 })();
