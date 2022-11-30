@@ -1,5 +1,6 @@
 package org.shiftworksboot.service;
 
+import org.shiftworksboot.dto.ChatDto;
 import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
 
@@ -14,4 +15,6 @@ public interface MessengerService {
     ChatRoom insertChatRoom(String empId);
 
     List<Chat> getChatList(String roomUuid);
+
+    void insertChat(ChatDto chatDto);
 }
