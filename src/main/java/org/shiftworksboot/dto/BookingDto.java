@@ -23,6 +23,7 @@ public class BookingDto {
 //    }
 
     public static BookingDto of(Booking booking){
+
         return modelMapper.map(booking, BookingDto.class);
     }
 }

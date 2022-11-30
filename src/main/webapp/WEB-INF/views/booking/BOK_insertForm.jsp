@@ -170,7 +170,7 @@
 							alert("예약되었습니다");
 							$(location).attr('href', '/booking/main');
 						}else if(result =="fail"){
-							alert("이미 예약된 시간입니다. 다시 시도해주세요");
+							alert("이미 예약된 시간입니다.");
 						}
 					})//end insertBooking
 	});

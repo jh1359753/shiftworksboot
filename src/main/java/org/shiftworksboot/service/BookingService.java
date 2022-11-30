@@ -2,8 +2,11 @@ package org.shiftworksboot.service;
 
 import lombok.RequiredArgsConstructor;
 import org.shiftworksboot.dto.BookingDto;
+import org.shiftworksboot.dto.BookingSearchDto;
 import org.shiftworksboot.entity.Booking;
 import org.shiftworksboot.repository.BookingRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,6 +88,18 @@ public class BookingService {
     public List<Booking> bookingList(){
 
         return bookingRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Booking> getBookingPage(BookingSearchDto bookingSearchDto, Pageable pageable){
+        return bookingRepository.getBookingPage(bookingSearchDto, pageable);
+    }
+
+
+    @Transactional
+    public Booking getBooking(int bookId){
+
+        return bookingRepository.findAllByBookId(bookId);
     }
 
 

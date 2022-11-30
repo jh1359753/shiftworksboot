@@ -4,9 +4,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.java.Log;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.shiftworksboot.dto.BookingSearchDto;
 import org.shiftworksboot.entity.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
@@ -34,14 +36,14 @@ class BookingRepositoryTest {
 //        System.out.println(bookingRepository.save(booking));
 //    }
 
-    @Test
-    @DisplayName("예약 조회 테스트")
-    public void getListBookingTest(){
-        List<Booking> bookingList = bookingRepository.findAll();
-//        List<Booking> bookingList = bookingRepository.findAllOrderByBookIdDesc();
-        System.out.println(bookingList.toString());
-
-    }
+//    @Test
+//    @DisplayName("예약 조회 테스트")
+//    public void getListBookingTest(){
+//        List<Booking> bookingList = bookingRepository.findAll();
+////        List<Booking> bookingList = bookingRepository.findAllOrderByBookIdDesc();
+//        System.out.println(bookingList.toString());
+//
+//    }
 
 
 //    @Test
@@ -51,7 +53,24 @@ class BookingRepositoryTest {
 //        System.out.println(dupBookingList.toString());
 //    }
 
+//    @Test
+//    @DisplayName("페이징 테스트")
+//    public void getPagingTest(){
+//        BookingSearchDto dto = new BookingSearchDto();
+//        Page<Booking> results = bookingRepository.getBookingPage(dto, null);
+//        System.out.println("결과는............."+results.toString());
+//    }
 
+
+    @Test
+    @DisplayName("예약 상세보기")
+    public void getDetail(){
+        int bookId = 3;
+        Booking result = bookingRepository.findAllByBookId(bookId);
+
+        System.out.println("결과값..............."+result.toString());
+
+    }
 
 
 }

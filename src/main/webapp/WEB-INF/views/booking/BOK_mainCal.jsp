@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <body>
 	
 	<div class="container">
-		<h2>Booking Calendar</h2>
 		<div id='calendar'></div>
 	</div>
 

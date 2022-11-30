@@ -58,11 +58,19 @@ class BookingServiceTest {
 //        System.out.println("예약 중복 테스트 결과........"+testBooking);
 //    }
 
+//    @Test
+//    @DisplayName("예약자원 리스트 조회 테스트")
+//    public void bookingListTest(){
+//        List<Booking> bookingList = bookingService.bookingList();
+//        System.out.println(bookingList.toString());
+//    }
+
     @Test
-    @DisplayName("예약자원 리스트 조회 테스트")
-    public void bookingListTest(){
-        List<Booking> bookingList = bookingService.bookingList();
-        System.out.println(bookingList.toString());
+    @DisplayName("예약 상세보기 테스트")
+    public void getBookingTest(){
+        Booking booking = bookingService.getBooking(3);
+
+        System.out.println("결과값.................."+booking);
     }
 
 
