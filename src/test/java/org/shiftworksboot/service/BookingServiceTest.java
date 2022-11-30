@@ -43,19 +43,26 @@ class BookingServiceTest {
 //
 //    }
 
-    @Test
-    @DisplayName("예약 중복 테스트")
-    public void dupBookingTest(){
-        Booking booking = new Booking();
-        booking.setBookDate("2022-11-14");
-        booking.setMeetingRoom("MTR101");
-        booking.setBookBegin("11");
-        booking.setBookTitle("예약 중복 테스트");
-        booking.setBookContent("예약 중복 테스트 내용");
+//    @Test
+//    @DisplayName("예약 중복 테스트")
+//    public void dupBookingTest(){
+//        Booking booking = new Booking();
+//        booking.setBookDate("2022-11-14");
+//        booking.setMeetingRoom("MTR101");
+//        booking.setBookBegin("11");
+//        booking.setBookTitle("예약 중복 테스트");
+//        booking.setBookContent("예약 중복 테스트 내용");
+//
+////        Booking testBooking = bookingService.insertBooking(booking);
+//        Boolean testBooking = bookingService.insertBooking(booking);
+//        System.out.println("예약 중복 테스트 결과........"+testBooking);
+//    }
 
-//        Booking testBooking = bookingService.insertBooking(booking);
-        Boolean testBooking = bookingService.insertBooking(booking);
-        System.out.println("예약 중복 테스트 결과........"+testBooking);
+    @Test
+    @DisplayName("예약자원 리스트 조회 테스트")
+    public void bookingListTest(){
+        List<Booking> bookingList = bookingService.bookingList();
+        System.out.println(bookingList.toString());
     }
 
 

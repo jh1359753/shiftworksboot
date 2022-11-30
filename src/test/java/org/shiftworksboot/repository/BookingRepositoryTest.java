@@ -34,21 +34,24 @@ class BookingRepositoryTest {
 //        System.out.println(bookingRepository.save(booking));
 //    }
 
+    @Test
+    @DisplayName("예약 조회 테스트")
+    public void getListBookingTest(){
+        List<Booking> bookingList = bookingRepository.findAll();
+//        List<Booking> bookingList = bookingRepository.findAllOrderByBookIdDesc();
+        System.out.println(bookingList.toString());
+
+    }
+
+
 //    @Test
-//    @DisplayName("예약 조회 테스트")
-//    public void getListBookingTest(){
-//        List<Booking> bookingList = bookingRepository.findAll();
-//        System.out.println(bookingList.toString());
-//
+//    @DisplayName("예약 자원 불러오기 테스트")
+//    public void getDupList(){
+//        List<Booking> dupBookingList = bookingRepository.findAllByBookDateAndMeetingRoom("2022-11-14", "MTR101");
+//        System.out.println(dupBookingList.toString());
 //    }
 
 
-    @Test
-    @DisplayName("예약 자원 불러오기 테스트")
-    public void getDupList(){
-        List<Booking> dupBookingList = bookingRepository.findAllByBookDateAndMeetingRoom("2022-11-14", "MTR101");
-        System.out.println(dupBookingList.toString());
-    }
 
 
 }

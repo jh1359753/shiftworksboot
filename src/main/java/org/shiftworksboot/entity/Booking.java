@@ -15,8 +15,8 @@ public class Booking {
 
     @Id
     @GeneratedValue
-    @Column(name = "book_id")
-    private int book_id;
+    @Column(name = "bookId")
+    private int bookId;
 
     private String bookTitle;
     private String bookContent;

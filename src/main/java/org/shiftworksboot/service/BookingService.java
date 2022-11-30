@@ -20,6 +20,7 @@ public class BookingService {
     private final BookingRepository bookingRepository;
 
 
+    //자원예약(+중복 검증)
     @Transactional
     public Boolean insertBooking(Booking booking) {
 
@@ -45,20 +46,11 @@ public class BookingService {
         }
 
         return result;
-
-//        Booking savedBooking = null;
-//        if(isAble = true){
-//            savedBooking = bookingRepository.save(booking);
-//        } else if (isAble = false) {
-//            return savedBooking;
-//        }
-//
-//        return savedBooking;
     }
 
 
 
-
+    //FullCal 출력용 리스트
     @Transactional
     public List<Map<String, Object>> getBookingList(){
         List<Booking> allBookingList = bookingRepository.findAll();
@@ -86,6 +78,13 @@ public class BookingService {
         }
 
         return bookingList;
+    }
+
+
+    @Transactional
+    public List<Booking> bookingList(){
+
+        return bookingRepository.findAll();
     }
 
 

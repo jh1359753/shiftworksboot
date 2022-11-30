@@ -57,4 +57,14 @@ public class BookingController {
 
         return service.getBookingList();
     }
+
+
+    @GetMapping("/list")
+    public ModelAndView bookingList(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("booking/BOK_list");
+        mav.addObject("event", service.bookingList());
+
+        return mav;
+    }
 }

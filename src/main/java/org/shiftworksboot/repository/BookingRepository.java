@@ -9,4 +9,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     List<Booking> findAllByBookDateAndMeetingRoom(String bookDate, String meetingRoom);
 
+
+
+
 }
