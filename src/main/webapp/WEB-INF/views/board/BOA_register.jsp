@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%--<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>--%>
 
-<%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -68,16 +68,18 @@
 						<input class="form-control" name='post_name' value="<c:out value="${post.post_name}" />" />
 					</div>
 					
-					<sec:authentication property="principal" var="pinfo"/>
+					<%--<sec:authentication property="principal" var="pinfo"/>--%>
 					<div class="form-group">
-						<label>게시자</label> 
-						<input class="form-control" name='name' value="<c:out value="${pinfo.employee.name}" />" readonly="readonly" />
+						<label>게시자</label>
+						<input class="form-control" name='name' value="<c:out value="${post.employee_id}" />" />
+						<%--<input class="form-control" name='name' value="<c:out value="${pinfo.employee.name}" />" readonly="readonly" />--%>
 					</div>
 					
-					<sec:authentication property="principal" var="pinfo"/>
+					<%--<sec:authentication property="principal" var="pinfo"/>--%>
 					<div class="form-group">
-						<label>게시부서</label> 
-						<input class="form-control" name='dept_id' value="<c:out value="${pinfo.employee.dept_id}" />" readonly="readonly">
+						<label>게시부서</label>
+						<input class="form-control" name='dept_id' value="<c:out value="${post.dept_id}" />" />
+						<%--<input class="form-control" name='dept_id' value="<c:out value="${pinfo.employee.dept_id}" />" readonly="readonly">--%>
 					</div>
 
 					<div class="form-group">
@@ -148,7 +150,7 @@ $(document).ready(function () {
 	    		return;
 	    	}
 		  
-		//각각의 파일을 list로 만들어서 post에도 이름을 저장하기 위함 
+		/*//각각의 파일을 list로 만들어서 post에도 이름을 저장하기 위함
 			var fileList=[];
 			$('.uploadResult ul li').each(function(i, obj) {
 				fileList.push({
@@ -156,19 +158,20 @@ $(document).ready(function () {
 					file_name: $(obj).data('file_name'),
 					file_src: $(obj).data('file_src'),
 				});
-			}); // end li each
+			}); // end li each*/
 		  
 		  
 	      var post = {
 	            b_id: formInputBoard.val(),
-	            post_name:formInputTitle.val(),
-	            emp_id:formInputEmp.val(), 
-	            dept_id:formInputDept.val(),
-	            post_content:formInputContent.val(),
-	            post_receivedept:formInputReceive.val(),
+	            pname:formInputTitle.val(),
+	            //emp_id:formInputEmp.val(),
+	            //dept_id:formInputDept.val(), 추후 수정 예정
+	            content:formInputContent.val(),
+	            receivedept:formInputReceive.val(),
+			  	regdate:formInputRegdate.val(),
 	            csrf_token:csrf_token,
-	            csrf_header:csrf_header,
-	            fileList: fileList
+	            csrf_header:csrf_header
+	            //fileList: fileList
 	          };
 	      
 	     	
@@ -340,12 +343,12 @@ $(document).ready(function () {
 		
 		//동적으로 게시판 메뉴 추가해주기
 		postService.boardList(function(result){
-			console.log(result[0].b_name);
+
 			
 			for(var i=0;i<result.length;i++){
 				
 				$(".form-select").append(
-					"<option value='"+result[i].b_id+"'>"+result[i].b_name+"</option>"
+					"<option value='"+result[i].b_id+"'>"+result[i].name+"</option>"
 				)
 			}
 			
@@ -362,4 +365,5 @@ $(document).ready(function () {
 
 	});
 </script>
-<%@include file="/WEB-INF/views/includes/footer.jsp"%>
+<%--
+<%@include file="/WEB-INF/views/includes/footer.jsp"%>--%>

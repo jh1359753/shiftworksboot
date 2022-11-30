@@ -11,8 +11,8 @@ var postService = (function(){
 			url : '/board/new',
 			data : JSON.stringify(post),
 			beforeSend : function(xhr){
-                xhr.setRequestHeader(post.csrf_header, post.csrf_token);
-            },
+                 xhr.setRequestHeader(post.csrf_header, post.csrf_token);
+				 },
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -30,7 +30,7 @@ var postService = (function(){
 	//글 스크랩하기
 	function scrapPost(post, callback, error) {
 		
-		console.log(post.post_content);
+		console.log(post.post_id);
 		
 		$.ajax({
 			type : 'post',
@@ -296,7 +296,7 @@ var postService = (function(){
 		
 		$.ajax({
 			type : 'get',
-			url : '/board/boardList'+".json",
+			url : '/board/boardList',
 			contentType : "application/json; charset:UTF-8",
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -318,7 +318,7 @@ var postService = (function(){
 		
 		$.ajax({
 			type : 'get',
-			url : '/board/allBoardList'+".json",
+			url : '/board/allBoardList',
 			contentType : "application/json; charset:UTF-8",
 			success : function(result, status, xhr) {
 				if (callback) {

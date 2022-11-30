@@ -15,19 +15,41 @@ public class Post {
     @Id
     @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int post_id;
+    private Integer post_id;
 
-    private String post_name;
-    private String post_content;
-    private int post_regno;
-    private String post_regdate;
-    private String post_updatedate;
-    private char post_fix;
-    private String post_receivedept;
+    @Column(name = "post_name")
+    private String pname;
 
-    @ManyToOne
+    @Column(name = "post_content")
+    private String content;
+
+    @Column(name = "post_regno")
+    private int regno;
+
+    @Column(name = "post_regdate")
+    private String regdate;
+
+    @Column(name = "post_updatedate")
+    private String updatedate;
+
+//    @Column(name = "post_fix")
+//    private char fix;
+
+    @Column(name = "post_receivedept")
+    private String receivedept;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "b_id")
     private Board board;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
+
+   /* @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id")
+    private Department department;*/
+
 
 
 }
