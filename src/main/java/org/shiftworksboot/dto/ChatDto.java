@@ -3,12 +3,14 @@ package org.shiftworksboot.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.modelmapper.ModelMapper;
 import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 public class ChatDto {
 
