@@ -189,42 +189,6 @@ var scheduleService = (function(){
         })
     } // end function getMemo()
 
-    // 예약 회의실 목록
-    function searchBooking(param, callback, error) {
-        $.ajax({
-            type: 'get',
-            url: '/schedule/search/booking/' + param,
-            success: function(result) {
-                if (callback) {
-					callback(result);
-				}
-            },
-			error : function(xhr, status, er) {
-				if (error) {
-					error(er);
-				}
-			}
-        })
-    } // end function searchBooking()
-
-    // 참가자 검색
-    function searchParticipant(param, callback, error) {
-        $.ajax({
-            type: 'get',
-            url: '/schedule/participant/' + param,
-            success: function(result) {
-                if (callback) {
-					callback(result);
-				}
-            },
-			error : function(xhr, status, er) {
-				if (error) {
-					error(er);
-				}
-			}
-        })
-    } // end function searchParticipant()
-
 
     return {
         getList: getList,
@@ -235,9 +199,7 @@ var scheduleService = (function(){
         deleteSchedule: deleteSchedule,
         getMemo: getMemo,
         updateMemo: updateMemo,
-        getWorkerList: getWorkerList,
-        searchBooking: searchBooking,
-        searchParticipant: searchParticipant
+        getWorkerList: getWorkerList
     };
 
 })();
@@ -727,7 +689,7 @@ $(document).ready(function(){
                 console.log(item.sch_date);
                 $('#calendarBody .' + item.sch_date).append(html);
             }
-            
+
             // end if
 
         }) // end forEach

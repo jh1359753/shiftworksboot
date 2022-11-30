@@ -16,9 +16,9 @@ import javax.persistence.Table;
 public class ChatUserStatus {
 
     @Id
-    private int status_id;
+    private int statusId;
 
     private String status;
 
-    private String connect_lasttime;
+    private String connectLasttime;
 }
