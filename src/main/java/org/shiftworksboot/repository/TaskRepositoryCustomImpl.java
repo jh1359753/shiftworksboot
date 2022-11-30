@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.java.Log;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.dto.TaskDto;
+import org.shiftworksboot.entity.QSchedule;
 import org.shiftworksboot.entity.QTask;
 import org.shiftworksboot.entity.Task;
 import org.springframework.data.domain.Page;
@@ -63,6 +64,5 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
     private BooleanExpression selectDept(TaskDept taskDept) {
         return ObjectUtils.isEmpty(taskDept) ? null : QTask.task.dept_id.eq(taskDept);
     }
-
 
 }
