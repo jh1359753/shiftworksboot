@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%--<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,15 +57,15 @@ $(document).ready(function () {
 	//게시판 목록불러오기
 	 postService.allBoardList(function(result){
 		 
-		 //console.log(result[1].b_id);
+		 //console.log(result[0].b_id);
 		 var str ="";
 		 for(var i=0;i<result.length;i++){
 			 
 						str +="<tr>";
 						str +="<td><a href='"+result[i].b_id+ "'>"+result[i].b_id +"</a></td>";
-						str +="<td>"+result[i].b_name +"</td>";
-						str +="<td>"+result[i].b_content +"</td>";
-						str +="<td>"+result[i].b_private +"</td>";
+						str +="<td>"+result[i].name +"</td>";
+						str +="<td>"+result[i].content +"</td>";
+						str +="<td>"+result[i].pri +"</td>";
 						str +="<td><button id='deleteBtn' class='btn btn-primary'>삭제</button></td>";
 						str +="</tr>";
 				 
