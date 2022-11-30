@@ -6,8 +6,10 @@ import org.shiftworksboot.dto.BoardDto;
 import org.shiftworksboot.dto.PostDto;
 import org.shiftworksboot.dto.PostSearchDto;
 import org.shiftworksboot.entity.Board;
+import org.shiftworksboot.entity.Employee;
 import org.shiftworksboot.entity.Post;
 import org.shiftworksboot.repository.BoardRepository;
+import org.shiftworksboot.repository.EmployeeRepository;
 import org.shiftworksboot.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +30,10 @@ public class PostService {
 
     private final BoardRepository boardRepository;
 
+    private final EmployeeRepository employeeRepository;
+
     //게시글 등록하기
-    public void insertPost(PostDto postDto){
+    public void insertPost(PostDto postDto, String emp_id){
         Post post= postDto.createPost();
 
         //log.info("postDto:" +postDto.getContent());
@@ -38,9 +42,12 @@ public class PostService {
         Board board = boardRepository.findById(b_id)
                 .orElseThrow(EntityNotFoundException::new);
         post.setBoard(board);
+
+        Employee employee = employeeRepository.findByEmpId(emp_id);
+        post.setEmployee(employee);
+
         postRepository.save(post);
 
-        //department, employee repository 통해 post 초기화하기
 
     }
 

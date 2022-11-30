@@ -245,10 +245,6 @@
 
 							var post = {
 								post_id : post_id,
-								dept_id : dept_id,
-								post_name : post_name,
-								post_content : post_content,
-								post_regdate:post_regdate,
 								csrf_token:csrf_token,
 					            csrf_header:csrf_header
 							}

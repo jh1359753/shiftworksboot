@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.shiftworksboot.dto.PostDto;
 import org.shiftworksboot.dto.PostSearchDto;
+import org.shiftworksboot.entity.Employee;
 import org.shiftworksboot.entity.Post;
+import org.shiftworksboot.repository.EmployeeRepository;
 import org.shiftworksboot.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class PostController {
 
     private final PostService postService;
+
+    private final EmployeeRepository employeeRepository;
 
 
     //게시글 등록 form 이동
@@ -34,14 +40,19 @@ public class PostController {
 
     //게시글 등록하기
     @PostMapping (value = "/board/new")
-    public ResponseEntity register(@RequestBody PostDto postDto){
+    public ResponseEntity register(@RequestBody PostDto postDto, Authentication auth){
 
         //파일업로드확인
 //        if(vo.getFileList() !=null) {
 //            vo.getFileList().forEach(file -> log.info(file));
 //        }
+        UserDetails ud = (UserDetails)auth.getPrincipal();
+        String emp_id = ud.getUsername();
 
-        postService.insertPost(postDto);
+        //log.info("employee:"+ emp_id);
+
+
+        postService.insertPost(postDto,emp_id);
         return new ResponseEntity<String>("success", HttpStatus.OK);
 
     }

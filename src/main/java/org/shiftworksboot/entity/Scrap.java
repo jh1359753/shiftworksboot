@@ -7,7 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name="post")
+@Table(name="scrap")
 @Getter
 @Setter
 @ToString
@@ -23,4 +23,9 @@ public class Scrap {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
+
 }

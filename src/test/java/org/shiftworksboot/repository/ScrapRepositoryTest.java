@@ -74,6 +74,12 @@ class ScrapRepositoryTest {
         System.out.println(scrapRepository.save(scrap).getScrap_id());
     }
 
+    @Test
+    @DisplayName("스크랩 조회 테스트")
+    public void getListScrap(){
+
+    }
+
 
 
 

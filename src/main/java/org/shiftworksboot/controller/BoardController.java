@@ -1,6 +1,7 @@
 package org.shiftworksboot.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.shiftworksboot.dto.BoardDto;
 import org.shiftworksboot.service.BoardService;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Log
 public class BoardController {
 
     private final BoardService boardService;
@@ -33,6 +35,7 @@ public class BoardController {
     @PostMapping(value = "/board/newBoard")
     public ResponseEntity insertNewBoard(@Valid @RequestBody BoardDto boardDto,
                                          BindingResult bindingResult) {
+        log.info("new............");
 
 
         /*if(bindingResult.hasErrors()){
