@@ -25,13 +25,13 @@
          <div class="login_wrap"> 
             <div class="id_wrap">
                   <div class="id_input_box">
-                  <input class="id_input" name="username" placeholder="사번" 
+                  <input class="id_input" name="empId" placeholder="사번"
                      onfocus="this.placeholder=''" onblur="this.placeholder='사번'">
                </div>
             </div>
             <div class="pw_wrap">
                <div class="pw_input_box">
-                  <input class="pw_iput" type="password" name ="password" 
+                  <input class="pw_iput" type="password" name ="password"
                      placeholder="비밀번호" 
                      onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호'">
                </div>
@@ -64,7 +64,7 @@
 		//alert("로그인 버튼 작동");
 		
 		/* 로그인 메서드 서버 요청 */
-		 $("#login_form").attr("action", "/login");
+		 $("#login_form").attr("action", "/users/login");
 		$("#login_form").submit();
 		
 	});

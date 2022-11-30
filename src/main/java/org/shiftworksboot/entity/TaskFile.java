@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "task_file")
-@Getter @Setter @ToString
+@Getter @Setter
 public class TaskFile {
 
     @Id

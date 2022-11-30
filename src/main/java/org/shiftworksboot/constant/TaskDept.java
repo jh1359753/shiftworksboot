@@ -1,5 +1,5 @@
 package org.shiftworksboot.constant;
 
 public enum TaskDept {
-    dept1, dept2, dept3
+    DEPT1, DEPT2, DEPT3
 }

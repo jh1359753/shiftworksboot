@@ -1,12 +1,11 @@
 package org.shiftworksboot.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.shiftworksboot.constant.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "department")
@@ -15,8 +14,23 @@ import javax.persistence.Table;
 public class Department {
 
     @Id
-    private String dept_id;
+    @Column(name = "dept_id")
+    private String deptId;
 
     private String dept_name;
-    private String authority;
+
+    @Enumerated(EnumType.STRING)
+    private Role authority;
+
+//    @OneToMany(mappedBy = "department")
+//    private List<Employee> employees = new ArrayList<>();
+
+//    @Builder
+//    public Department(String dept_name, Employee employee){
+//        this.dept_name=dept_name;
+//        employee.addDepartment(this);
+//    }
+
+
+
 }

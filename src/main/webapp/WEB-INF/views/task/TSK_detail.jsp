@@ -9,26 +9,12 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<script type="text/javascript" src="/resources/js/task.js"></script>
+	<script type="text/javascript" src="/resources/js/task.js"></script>
 <link rel="stylesheet" href="/resources/css/task.css">
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 <title>업무 관리</title>
 </head>
 <body>
-
-<c:if test="${ fn:contains(task.t_private, 'Y') }">
-	
-		<script type="text/javascript">
-			var taskDept_id = '<c:out value="${ task.dept_id }"/>';
-			var principalDept_id = '<sec:authentication property="principal.employee.dept_id"/>';
-			console.log(taskDept_id);
-			console.log(principalDept_id);
-			if(taskDept_id != principalDept_id) {
-				location.href="/task/accessDenied";
-			}
-		</script>
-
-</c:if>
 
 <div class="container">
 
@@ -42,7 +28,7 @@
 		<!-- 부서 검색 가능하도록 변경 필요 -->
 			<label for="dept_name" class="form-label">부서</label>
 			<input type="text" class="form-control"
-			id="dept_name" value="${task.dept_name}" readonly>
+			id="dept_name" value="부서1" readonly>
 			<input type="hidden" class="form-control"
 			id="dept_id" value="${task.dept_id}">
 		</div>
@@ -53,9 +39,9 @@
 		</div>
 		<div class="mb-3">
 			<label for="name" class="form-label">작성자</label>
-			<input class="form-control" type="text" value="${task.name}"
+			<input class="form-control" type="text" value="${task.writer}"
 				id="name" readonly>
-			<input class="form-control" type="hidden" value="${task.emp_id}"
+			<input class="form-control" type="hidden" value="${task.createBy}"
 				id="emp_id">
 		</div>
 		<div class="mb-3 form-check">
@@ -103,8 +89,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			
-			var taskEmp_id = '<c:out value="${ task.emp_id }"/>';
-			var principalEmp_id = '<sec:authentication property="principal.username"/>';
+			var taskEmp_id = "${task.createBy}";
+			var principalEmp_id = "${emp.empId}";
 			console.log(taskEmp_id);
 			console.log(principalEmp_id);
 			if(taskEmp_id != principalEmp_id) {

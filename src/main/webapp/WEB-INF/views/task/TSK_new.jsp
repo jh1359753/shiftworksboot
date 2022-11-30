@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+		  prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
 <head>
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<script type="text/javascript" src="/resources/js/task.js"></script>
+	<script type="text/javascript" src="/resources/js/task.js"></script>
 <link rel="stylesheet" href="/resources/css/task.css">
 <link rel='stylesheet'
 	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -24,9 +26,9 @@
 		<div class="mb-3">
 			<select class="form-select dept" aria-label="Default select example">
   				<option selected>부서를 선택하세요.</option>
-  				<option value="dept1">인사</option>
-  				<option value="dept2">회계</option>
-  				<option value="info_secu">보안</option>
+  				<option value="DEPT1">인사</option>
+  				<option value="DEPT2">회계</option>
+  				<option value="INFO-SECU">보안</option>
 			</select>
 			<input type="hidden" class="form-control"
 			id="dept_id" value="">
@@ -35,14 +37,6 @@
 			<label for="task_title" class="form-label">제목</label>
 			<input type="text" class="form-control"
 			id="task_title" placeholder="글 제목">
-		</div>
-		<div class="mb-3">
-		<!-- 세션 추가 후 수정 -->
-			<label for="name" class="form-label">작성자</label>
-			<input class="form-control" type="text" value='<sec:authentication property="principal.employee.name"/>'
-				id="name" readonly>
-			<input class="form-control" type="hidden" value='<sec:authentication property="principal.username"/>'
-				id="emp_id">
 		</div>
 		<div class="mb-3 form-check">
 			<div>
@@ -134,7 +128,6 @@
 					dept_id: $('#dept_id').val(),
 					task_title: $('#task_title').val(),
 					task_content: $('#task_content').val(),
-					emp_id: $('#emp_id').val(),
 					t_private: isPrivate,
 					notification: isNotification,
 					fileList: fileList
@@ -143,7 +136,7 @@
 				// 객체 전달하여 DB에 저장 후 페이지 이동
 				taskService.insertTask(newTask, function(result){
 					// href 대신 replace 이용하여 히스토리 남지 않게 처리
-					location.replace("/task/pages/" + newTask.dept_id + "/empty/empty/1");
+					location.replace("/task/pages/" + newTask.dept_id.toLowerCase() + "/empty/empty/1");
 				});
 
 			}); // end submit click event
