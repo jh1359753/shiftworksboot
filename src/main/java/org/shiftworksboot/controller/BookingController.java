@@ -36,8 +36,6 @@ public class BookingController {
     @PostMapping("/new")
     public ResponseEntity<String> insertBooking(@RequestBody BookingDto bookingDto){
         Booking booking = Booking.createBooking(bookingDto);
-//        Booking savedBooking = service.insertBooking(booking);
-        System.out.println("변환된 booking................"+booking);
         Boolean savedBooking = service.insertBooking(booking);
         System.out.println("BookingController 결과값.............:"+savedBooking);
 
