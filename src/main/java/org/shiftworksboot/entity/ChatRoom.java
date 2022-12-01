@@ -45,4 +45,11 @@ public class ChatRoom {
         chatRoom.setEmployee(employee);
         return chatRoom;
     }
+
+    public void updataChatRoom(String lastchat, String lastchatTime) {
+
+        this.lastchat = lastchat;
+        this.lastchatTime = lastchatTime;
+
+    }
 }

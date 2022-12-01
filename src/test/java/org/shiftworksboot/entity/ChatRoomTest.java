@@ -53,12 +53,15 @@ class ChatRoomTest {
 
         List<ChatRoom> chatRoomList = new ArrayList<>();
         Employee employee = new Employee();
-        employee.setEmpId("user1");
-        employee.setPassword("pw1");
+        employee.setEmpId("user3");
+        employee.setPassword("pw3");
         employee.setName("홍길동");
 
+
         for (int i = 0; i < 10; i++){
-            ChatRoom chatRoom = ChatRoom.createChatRoom(employee);
+            ChatRoom chatRoom = new ChatRoom();
+            chatRoom.setRoomId("roomid1");
+            chatRoom.setEmployee(employee);
             chatRoom.setRoomName("테스트" + i);
             chatRoomList.add(chatRoom);
             chatRoomRepository.save(chatRoom);
@@ -87,6 +90,21 @@ class ChatRoomTest {
         em.clear();
 
         List<ChatRoom> chatRoomList = chatRoomRepository.findChatRoomByEmployee_EmpId("user1");
+
+        log.info("chatroomList : "+chatRoomList.toString());
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("roomId로 채팅방 조회 테스트")
+    public void findChatRoomByRoomId() {
+        createChatRoom();
+
+        em.flush();
+        em.clear();
+
+        List<ChatRoom> chatRoomList = chatRoomRepository.findChatRoomsByRoomId("roomid1");
+        chatRoomList.forEach(chatRoom -> chatRoom.updataChatRoom("마지막 채팅 내용", "2022-12-01"));
 
         log.info("chatroomList : "+chatRoomList.toString());
     }

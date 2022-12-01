@@ -2,6 +2,7 @@ package org.shiftworksboot.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.shiftworksboot.dto.ChatDto;
 import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
 import org.shiftworksboot.service.MessengerService;
@@ -74,6 +75,24 @@ public class MessengerController {
     public ResponseEntity<List<Chat>> getChat(@PathVariable("room_id") String roomId) {
         log.info("@ChatRoomController, GET getChat...............");
         return new ResponseEntity<>(messengerService.getChatList(roomId), HttpStatus.OK);
+    }
+
+    // 메시지 전송 요청
+    @PostMapping(value = "/messenger/chat/send/{room_id}")
+    @ResponseBody
+    public ResponseEntity<String> sendChat(@PathVariable("room_id") String room_id, @RequestBody ChatDto chatDto) {
+        log.info("@MessengerController, POST sendMessage...............");
+        log.info("@MessengerController, content : " + chatDto.getContent());
+
+        try {
+            messengerService.insertChat(chatDto);
+        } catch (Exception e) {
+             new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR); // 500
+        }
+
+        // insert 유무에 따라 헤더값을 다르게 전달
+        return new ResponseEntity<>("success", HttpStatus.OK); // 200
+
     }
 
 

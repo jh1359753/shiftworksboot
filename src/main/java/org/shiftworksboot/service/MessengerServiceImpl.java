@@ -2,6 +2,7 @@ package org.shiftworksboot.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.shiftworksboot.dto.ChatDto;
 import org.shiftworksboot.entity.Chat;
 import org.shiftworksboot.entity.ChatRoom;
 import org.shiftworksboot.entity.Employee;
@@ -82,5 +83,28 @@ public class MessengerServiceImpl implements MessengerService{
         chatList.forEach(chat -> log.info("service : getChatList" + chat.getContent()));
 
         return chatRepository.findTop5ByRoomIdOrderBySendtimeAsc(roomId);
+    }
+
+    @Override
+    @Transactional
+    public void insertChat(ChatDto chatDto) {
+        log.info("insertChat : " + chatDto.toString());
+
+        // 채팅 정보 저장
+        Chat chat = new Chat();
+        chat.setContent(chatDto.getContent());
+        chat.setSender(chatDto.getSender());
+        chat.setSendtime(chatDto.getSendtime());
+        chat.setRoomId(chatDto.getRoomId());
+        chatRepository.save(chat);
+
+        // 채팅방 정보에 마지막 채팅 정보 수정
+        List<ChatRoom> chatRoomList = chatRoomRepository.findChatRoomsByRoomId(chatDto.getRoomId());
+        if (chatRoomList == null) {
+            new EntityNotFoundException();
+        }
+
+        chatRoomList.forEach(chatRoom -> chatRoom.updataChatRoom(chatDto.getContent(), chatDto.getSendtime()));
+
     }
 }
