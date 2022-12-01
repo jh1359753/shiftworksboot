@@ -28,8 +28,6 @@ public class BookingService {
     public Boolean insertBooking(Booking booking) {
 
         List<Booking> checkingList = bookingRepository.findAllByBookDateAndMeetingRoom(booking.getBookDate(), booking.getMeetingRoom());
-//        System.out.println(checkingList.toString());
-//        System.out.println(booking.toString());
 
         Boolean isAble = true;
         for (int i = 0; i < checkingList.size(); i++) {
@@ -37,7 +35,6 @@ public class BookingService {
                 isAble = false;
             }
         }
-//        System.out.println("isAble의 상태는............."+isAble);
 
         Boolean result = false;
         if (isAble == true) {
@@ -84,18 +81,21 @@ public class BookingService {
     }
 
 
+    //전체 리스트(게시판)
     @Transactional
     public List<Booking> bookingList(){
 
         return bookingRepository.findAll();
     }
 
+
+    //페이징 처리(+검색) -> 뷰 처리 미완
     @Transactional(readOnly = true)
     public Page<Booking> getBookingPage(BookingSearchDto bookingSearchDto, Pageable pageable){
         return bookingRepository.getBookingPage(bookingSearchDto, pageable);
     }
 
-
+    //예약 상세보기
     @Transactional
     public Booking getBooking(int bookId){
 
