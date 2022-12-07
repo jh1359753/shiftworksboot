@@ -76,17 +76,17 @@
 					<nav aria-label="Page navigation example">
 						<ul class="pagination justify-content-center">
 							<!-- 이전버튼 출력 -->
-							<c:if test="${ !taskPage.first }">
+							<c:if test="${ taskPage.number ne 0 }">
 								<li class="page-item"><a class="page-link prev" href="#">이전</a></li>
 							</c:if>
 							<!-- 검색조건에 맞는 게시글 총량에 따라 페이징처리 -->
 							<c:forEach begin="${ 0 }"
-							 			end="${ 2 }"
+							 			end="${ totalCount }"
 									   var="i">
 								<li class="page-item"><a class="page-link pageNum" href="#">${ (i + 1) }</a></li>
 							</c:forEach>
 							<!-- 다음버튼 출력 -->
-							<c:if test="${ !taskPage.last }">
+							<c:if test="${ taskPage.number ne totalCount }">
 								<li class="page-item"><a class="page-link next" href="#">다음</a></li>
 							</c:if>
 						</ul>

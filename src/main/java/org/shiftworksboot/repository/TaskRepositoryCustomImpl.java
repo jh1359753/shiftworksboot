@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.java.Log;
 import org.shiftworksboot.constant.TaskDept;
 import org.shiftworksboot.dto.TaskDto;
+import org.shiftworksboot.entity.QSchedule;
 import org.shiftworksboot.entity.QTask;
 import org.shiftworksboot.entity.Task;
 import org.springframework.data.domain.Page;
@@ -45,6 +46,18 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
         return new PageImpl<Task>(taskList, pageable, taskList.size());
     }
 
+    @Override
+    public Integer getTotalCount(TaskDto taskDto) {
+        QTask qTask = QTask.task;
+        List<Task> taskList = queryFactory
+                .selectFrom(qTask)
+                .where(searchTitle(taskDto.getTask_title()),
+                        searchContent(taskDto.getTask_content()),
+                        selectDept(taskDto.getDept_id()))
+                .fetch();
+        return taskList.size();
+    }
+
 
     // where절 조건 입력을 위한 BooleanExpression
 
@@ -63,6 +76,5 @@ public class TaskRepositoryCustomImpl implements TaskRepositoryCustom{
     private BooleanExpression selectDept(TaskDept taskDept) {
         return ObjectUtils.isEmpty(taskDept) ? null : QTask.task.dept_id.eq(taskDept);
     }
-
 
 }

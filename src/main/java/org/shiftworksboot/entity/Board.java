@@ -15,9 +15,14 @@ public class Board {
     @Id
     @Column(name = "b_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int b_id;
+    private Integer b_id;
 
-    private String b_name;
-    private String b_content;
-    private char b_private;
+    @Column(name = "b_name")
+    private String name;
+
+    @Column(name = "b_content")
+    private String content;
+
+    @Column(name = "b_private")
+    private String pri;
 }

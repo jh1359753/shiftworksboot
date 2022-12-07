@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%--<%@taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>--%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -317,12 +317,12 @@
 		
 		//동적으로 게시판 메뉴 추가해주기
 	     postService.boardList(function(result){
-	        console.log(result[1].b_name);
+
 	        
 	        for(var i=0;i<result.length;i++){
 	           
 	           $(".board").append(
-               "<a href='/board/list?b_id="+result[i].b_id+"'><li>"+result[i].b_name+"</li></a><br>"
+               "<a href='/board/list?b_id="+result[i].b_id+"'><li>"+result[i].name+"</li></a><br>"
 	           )
 	        }
 	         
